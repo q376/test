@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoVerse - Win Real TON Playing Games</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">CryptoVerse</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('games')">Games</a></li>
+                <li><a href="#" onclick="showSection('competitions')">Competitions</a></li>
+                <li><a href="#" onclick="showSection('rewards')">Rewards</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <script async src="https://telegram.org/js/telegram-widget.js?21"
+                    data-telegram-login="tongames_test_bot"  
+                    data-size="large"
+                    data-auth-url="https://tonnaton.netlify.app/"
+                    data-request-access="write">
+                </script>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>CryptoVerse</h1>
+                <p>Play Games. Win Real TON. Compete for Prizes.</p>
+                <div class="prize-highlight">💰 Daily Prizes up to 10 TON!</div>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary" onclick="showSection('games')">🎮 Start Playing</a>
+                    <a href="#" class="btn btn-secondary" onclick="showSection('competitions')">🏆 View Competitions</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Banner Ad -->
+        <div class="container">
+            <div class="ad-banner">
+                📱 Advertisement Space - 728x90 Banner
+            </div>
+        </div>
+
+        <div class="container">
+            <h2>🎯 How It Works</h2>
+            
+            <div class="content-with-ads">
+                <div class="main-content">
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <span class="game-icon">🎮</span>
+                            <h3>Play Free Games</h3>
+                            <p>Start with free games to practice and earn small rewards from our ad revenue.</p>
+                            <div class="prize-info">Free Daily: 0.1-0.5 TON</div>
+                        </div>
+                        <div class="game-card">
+                            <span class="game-icon">💰</span>
+                            <h3>Enter Competitions</h3>
+                            <p>Join paid competitions with entry fees for bigger prize pools and serious competition.</p>
+                            <div class="prize-info">Paid Events: 1-100 TON+</div>
+                        </div>
+                        <div class="game-card">
+                            <span class="game-icon">🏆</span>
+                            <h3>Win Real TON</h3>
+                            <p>Get paid automatically to your TON wallet at the end of each competition period.</p>
+                            <div class="prize-info">Instant Payouts!</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ads-sidebar">
+                    <div class="ad-sidebar">📱 Sidebar Ad<br>300x250<br>Rectangle</div>
+                    <div class="ad-sidebar">📱 Sidebar Ad<br>300x600<br>Half Page</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Another Banner Ad -->
+        <div class="container">
+            <div class="ad-banner">
+                📱 Advertisement Space - 728x90 Banner
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="section">
+        <div class="container">
+            <h2>🎮 Games</h2>
+            
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                📱 Games Section Ad - 728x90 Banner
+            </div>
+            
+            <div class="content-with-ads">
+                <div class="main-content">
+                    <h3>🎯 Strategy Games</h3>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-icon">♟️</div>
+                            <h3>Chess</h3>
+                            <p>Classic chess against people or AI!</p>
+                            <button class="btn btn-primary" onclick="playGame('chess')">Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">⚫</div>
+                            <h3>Checkers</h3>
+                            <p>Strategic checkers matches with prize pools!</p>
+                            <button class="btn btn-primary" onclick="playGame('checkers')">Play Now</button>
+                        </div>
+                    </div>
+                    <br>
+                    <h3>🎪 Arcade Games</h3>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-icon">🦅</div>
+                            <h3>Flappy Bird</h3>
+                            <p>Navigate through pipes in this classic arcade game!</p>
+                            <button class="btn btn-primary" onclick="playGame('flappy')">Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">🔢</div>
+                            <h3>2048</h3>
+                            <p>Combine tiles to reach the magical 2048 number!</p>
+                            <button class="btn btn-primary" onclick="playGame('2048')">Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">🐍</div>
+                            <h3>Snake</h3>
+                            <p>Eat and grow longer without hitting yourself!</p>
+                            <button class="btn btn-primary" onclick="playGame('snake')">Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">🎴</div>
+                            <h3>Memory Match</h3>
+                            <p>Test your memory by matching pairs of cards!</p>
+                            <button class="btn btn-primary" onclick="playGame('memory')">Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">💣</div>
+                            <h3>Minesweeper</h3>
+                            <p>A game where you don't have a right to make a mistake...</p>
+                            <button class="btn btn-primary" onclick="playGame('minesweeper')">Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">💥</div>
+                            <h3>Breakout</h3>
+                            <p>Crush bricks with a ball and don't let the ball fall!</p>
+                            <button class="btn btn-primary" onclick="playGame('breakout')">Play Now</button>
+                        </div>
+                    </div>
+                        <h3>🎲 Free casino (no real money!)</h3>
+                        <div class="games-grid">
+                            <div class="game-card">
+                                <div class="game-icon">🎰</div>
+                                <h3>Slots</h3>
+                                <p>Play slots!</p>
+                                <button class="btn btn-primary" onclick="playGame('slots')">Play Now</button>
+                            </div>
+                            <div class="game-card">
+                                <div class="game-icon">♣</div>
+                                <h3>Blackjack</h3>
+                                <p>Play blackjack!</p>
+                                <button class="btn btn-primary" onclick="playGame('blackjack')">Play Now</button>
+                            </div>
+                            <div class="game-card">
+                                <div class="game-icon">🎱</div>
+                                <h3>Plinko</h3>
+                                <p>Play plinko!</p>
+                                <button class="btn btn-primary" onclick="playGame('plinko')">Play Now</button>
+                            </div>
+                    </div>
+                </div>
+                
+                <div class="ads-sidebar">
+                    <div class="ad-sidebar">📱 Game Ads<br>300x250<br>Rectangle</div>
+                    <div class="ad-sidebar">📱 Sponsored<br>Games<br>300x250</div>
+                    <div class="ad-sidebar">📱 Video Ad<br>300x250<br>Rewarded</div>
+                </div>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                📱 Between Games Ad - 728x90 Banner
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitions Section -->
+    <section id="competitions" class="section">
+        <div class="container">
+            <h2>🏆 Competitions</h2>
+            
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                📱 Competitions Ad - 728x90 Banner
+            </div>
+            
+            <div class="content-with-ads">
+                <div class="main-content">
+                    <h3>🆓 Free Competitions</h3>
+                    <div class="competition-grid">
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>♃ Daily Chess Challenge</h4>
+                                <div>
+                                    <span class="entry-fee" style="background: #4ecdc4; color: #000;">FREE</span>
+                                    <span class="prize-pool">0.5 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Free daily chess tournament funded by ad revenue!</p>
+                            <p><strong>Ends:</strong> Today 11:59 PM</p>
+                            <p><strong>Players:</strong> 34/100</p>
+                            <button class="btn btn-primary">Join Free</button>
+                        </div>
+
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>🧩 Daily Puzzle Rush</h4>
+                                <div>
+                                    <span class="entry-fee" style="background: #4ecdc4; color: #000;">FREE</span>
+                                    <span class="prize-pool">0.3 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Best combined score across all puzzle games wins!</p>
+                            <p><strong>Ends:</strong> Today 11:59 PM</p>
+                            <p><strong>Players:</strong> 67/unlimited</p>
+                            <button class="btn btn-primary">Join Free</button>
+                        </div>
+
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>🧠 Free Trivia Night</h4>
+                                <div>
+                                    <span class="entry-fee" style="background: #4ecdc4; color: #000;">FREE</span>
+                                    <span class="prize-pool">0.2 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Weekly free trivia with ad-sponsored prizes!</p>
+                            <p><strong>Ends:</strong> Friday 8:00 PM</p>
+                            <p><strong>Players:</strong> 89/unlimited</p>
+                            <button class="btn btn-primary">Join Free</button>
+                        </div>
+                    </div>
+
+                    <h3>💰 Paid Competitions</h3>
+                    <div class="competition-grid">
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>🏆 Premium Chess Tournament</h4>
+                                <div>
+                                    <span class="entry-fee">1 TON Entry</span>
+                                    <span class="prize-pool">10 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>High-stakes chess with serious players. Winner takes 70%!</p>
+                            <p><strong>Ends:</strong> Today 11:59 PM</p>
+                            <p><strong>Players:</strong> 8/12</p>
+                            <button class="btn btn-primary">Join (1 TON)</button>
+                        </div>
+
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>📊 Weekly Coding Challenge</h4>
+                                <div>
+                                    <span class="entry-fee">2 TON Entry</span>
+                                    <span class="prize-pool">50 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Algorithmic challenges. Top 3 winners split the pot!</p>
+                            <p><strong>Ends:</strong> Sunday 11:59 PM</p>
+                            <p><strong>Players:</strong> 23/30</p>
+                            <button class="btn btn-primary">Join (2 TON)</button>
+                        </div>
+
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>🎯 Mixed Games Championship</h4>
+                                <div>
+                                    <span class="entry-fee">0.5 TON Entry</span>
+                                    <span class="prize-pool">15 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Multi-game tournament across chess, puzzles, and trivia!</p>
+                            <p><strong>Ends:</strong> Saturday 6:00 PM</p>
+                            <p><strong>Players:</strong> 28/40</p>
+                            <button class="btn btn-primary">Join (0.5 TON)</button>
+                        </div>
+                    </div>
+
+                    <h3>🚀 Upcoming Events</h3>
+                    <div class="competition-grid">
+                        <div class="competition-card" style="opacity: 0.8;">
+                            <div class="competition-header">
+                                <h4>🎯 Super Series Championship</h4>
+                                <div>
+                                    <span class="entry-fee">$10 Entry</span>
+                                    <span class="prize-pool">$500+ Prize Pool</span>
+                                </div>
+                            </div>
+                            <p>Multi-game championship with massive prizes!</p>
+                            <p><strong>Starts:</strong> Next Monday</p>
+                            <p><strong>Registration:</strong> Opens Soon</p>
+                            <button class="btn btn-secondary" disabled>Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ads-sidebar">
+                    <div class="ad-sidebar">📱 Competition<br>Sponsors<br>300x250</div>
+                    <div class="ad-sidebar">📱 Crypto<br>Services<br>300x250</div>
+                    <div class="ad-sidebar">📱 Gaming<br>Gear<br>300x250</div>
+                </div>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                📱 Competition Footer Ad - 728x90 Banner
+            </div>
+        </div>
+    </section>
+
+    <!-- Rewards Section -->
+    <section id="rewards" class="section">
+        <div class="container">
+            <h2>💰 Rewards & Earnings</h2>
+            
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                📱 Rewards Section Ad - 728x90 Banner
+            </div>
+            
+            <div class="content-with-ads">
+                <div class="main-content">
+                    <div class="leaderboard">
+                        <h3>🏆 Top Earners This Week</h3>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#1</span>
+                                <strong>ChessMaster2024</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">15.5 TON</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#2</span>
+                                <strong>CodeNinja</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">12.3 TON</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#3</span>
+                                <strong>QuizKing</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">8.7 TON</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#4</span>
+                                <strong>ArcadeHero</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">6.2 TON</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#5</span>
+                                <strong>PuzzlePro</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">4.8 TON</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem; text-align: center; padding: 2rem; background: rgba(255, 255, 255, 0.1); border-radius: 15px;">
+                        <h3>💎 Your Earnings</h3>
+                        <p style="font-size: 1.5rem; margin: 1rem 0;"><span id="user-earnings">0</span> TON</p>
+                        <p>Login with Telegram to start earning!</p>
+                        <button class="btn btn-primary" onclick="showUserProfile()">View Profile</button>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 2rem; background: rgba(255, 255, 255, 0.1); border-radius: 15px;">
+                        <h3>📅 Payout Schedule</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 0.5rem 0;"><strong>Daily Competitions:</strong> Paid at 12:00 AM UTC</li>
+                            <li style="padding: 0.5rem 0;"><strong>Weekly Events:</strong> Paid every Monday 12:00 AM UTC</li>
+                            <li style="padding: 0.5rem 0;"><strong>Special Tournaments:</strong> Paid immediately after completion</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="ads-sidebar">
+                    <div class="ad-sidebar">📱 Crypto<br>Wallet<br>300x250</div>
+                    <div class="ad-sidebar">📱 Trading<br>Platform<br>300x250</div>
+                    <div class="ad-sidebar">📱 DeFi<br>Services<br>300x250</div>
+                </div>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                📱 Rewards Footer Ad - 728x90 Banner
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Ad -->
+    <div class="container">
+        <div class="ad-banner">
+            📱 Footer Ad - 728x90 Banner
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CryptoVerse. All rights reserved. | Powered by TON Blockchain</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">🎮 Play Responsibly | 💰 Real Money Gaming | 🔒 Secure TON Payments</p>
+        </div>
+    </footer>
+
+    <!-- Game Player Modal -->
+    <div id="game-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+        <div style="position:relative; width:90%; max-width:800px; height:90%; background:#000; border-radius:12px; overflow:hidden;">
+            <iframe id="game-frame" src="" style="width:100%; height:100%; border:none;"></iframe>
+            <button onclick="closeGame()" style="position:absolute; top:10px; right:10px; background:red; color:white; border:none; padding:8px 12px; border-radius:6px; cursor:pointer;">
+                ✖ Close
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
