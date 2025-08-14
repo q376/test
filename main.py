@@ -1,4 +1,4 @@
-import hmac
+"""import hmac
 import hashlib
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
@@ -23,4 +23,4 @@ async def telegram_auth(request: Request):
     if check_telegram_auth(data):
         first_name = data.get("first_name", "Unknown")
         return HTMLResponse(f"<h1>Привет, {first_name}!</h1>")
-    return HTMLResponse("<h1>Ошибка авторизации</h1>", status_code=403)
+    return HTMLResponse("<h1>Ошибка авторизации</h1>", status_code=403)"""
