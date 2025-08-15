@@ -17,6 +17,28 @@
                 <li><a href="#" onclick="showSection('competitions')">Competitions</a></li>
                 <li><a href="#" onclick="showSection('rewards')">Rewards</a></li>
             </ul>
+            <div class="auth-buttons" id="auth-container">
+                <script async src="https://telegram.org/js/telegram-widget.js?21"
+                    data-telegram-login="tongames_test_bot"
+                    data-size="large"
+                    data-userpic="true"
+                    data-onauth="onTelegramAuth(user)"
+                    data-request-access="write">
+                </script>
+            </div>
+                <script>
+                function onTelegramAuth(user) {
+                    const authContainer = document.getElementById("auth-container");
+                        authContainer.innerHTML = `
+                            <div class="user-info" style="display:flex;align-items:center;">
+                            <img src="${user.photo_url}" style="width:40px; height:40px; border-radius:50%; margin-right:10px;" />
+                            <span style="font-size:16px;">${user.first_name}</span>
+                            </div>
+                            `;
+                            localStorage.setItem("telegramUser", JSON.stringify(user));
+                            }
+                </script>
+            <!--
             <div class="auth-buttons">
                 <script async src="https://telegram.org/js/telegram-widget.js?21"
                     data-telegram-login="tongames_test_bot"  
@@ -25,6 +47,7 @@
                     data-request-access="write">
                 </script>
             </div>
+            -->
         </nav>
     </header>
 
@@ -447,4 +470,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
