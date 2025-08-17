@@ -213,7 +213,7 @@ function renderUserProfile(user) {
         <div class="user-info" style="display:flex;align-items:center;gap:10px;">
             <img src="${user.photo_url}" style="width:40px; height:40px; border-radius:50%;" />
             <span>${user.first_name}</span>
-            <button onclick="logout()" style="margin-left:10px; padding:4px 8px; border:none; background:#ff4444; color:white; border-radius:5px; cursor:pointer;">Выйти</button>
+            <button onclick="logout()" style="margin-left:10px; padding:4px 8px; border:none; background:#ff4444; color:white; border-radius:5px; cursor:pointer;">Log out</button>
         </div>
     `;
     renderAccountPage(user);
@@ -262,4 +262,5 @@ document.addEventListener("DOMContentLoaded", () => {
         renderUserProfile(user);
     }
 });
+
 
