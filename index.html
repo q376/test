@@ -439,53 +439,9 @@
 
     <section id="account" class="section">
         <h2>My account</h2>
-        <div id="account-info"></div>
-
-        <!--<script>
-        document.addEventListener("DOMContentLoaded", () => {
-        const storedUser = localStorage.getItem("telegramUser");
-        if (!storedUser) {
-            window.location.href = "index.html"; // if not logged in
-            return;
-        }
-
-        const user = JSON.parse(storedUser);
-        document.getElementById("account-info").innerHTML = `
-            <div style="display:flex;align-items:center;gap:10px;">
-                <img src="${user.photo_url}" style="width:50px; height:50px; border-radius:50%;" />
-                <span>${user.first_name} ${user.last_name || ""}</span>
+        <div id="account-info">
+            
         </div>
-        <p>ID: ${user.id}</p>
-        <hr>
-        <h3>Wallet</h3>
-        <input type="text" id="wallet" placeholder="Input wallet adress" style="width:300px;" />
-        <button onclick="saveWallet()">Save</button>
-        <p id="wallet-status"></p>
-        <hr>
-        <button onclick="logout()">Log out</button>
-    `;
-
-    // load saved wallet
-    const wallet = localStorage.getItem("userWallet");
-    if (wallet) document.getElementById("wallet").value = wallet;
-});
-
-function saveWallet() {
-    const wallet = document.getElementById("wallet").value.trim();
-    if (!wallet) {
-        document.getElementById("wallet-status").textContent = "Input wallet adress";
-        return;
-    }
-    localStorage.setItem("userWallet", wallet);
-    document.getElementById("wallet-status").textContent = "Input wallet adress";
-}
-
-function logout() {
-    localStorage.removeItem("telegramUser");
-    localStorage.removeItem("userWallet");
-    window.location.href = "index.html";
-}
-</script>-->
 
     </section>
     
@@ -517,6 +473,7 @@ function logout() {
 </body>
 
 </html>
+
 
 
 
