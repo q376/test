@@ -194,67 +194,109 @@ function validateScore(game, score, data) {
         // Add other games...
     }
     return true;
-
 }
-/*
-test
-*/
-// ==== Авторизация через Telegram ====
+
+// ==== Telegram Authorization ====
 function onTelegramAuth(user) {
     localStorage.setItem("telegramUser", JSON.stringify(user));
     renderUserProfile(user);
-    showSection("account"); // сразу открыть аккаунт
+    showSection("account"); // immediately open account section
 }
 
-// Рендер кнопки/аватара в хедере
+// Render button/avatar in header
 function renderUserProfile(user) {
     const authContainer = document.getElementById("auth-container");
     authContainer.innerHTML = `
-        <div class="user-info" style="display:flex;align-items:center;gap:10px;">
+        <div class="user-info">
             <img src="${user.photo_url}" style="width:40px; height:40px; border-radius:50%;" />
             <span>${user.first_name}</span>
-            <button onclick="logout()" style="margin-left:10px; padding:4px 8px; border:none; background:#ff4444; color:white; border-radius:5px; cursor:pointer;">Log out</button>
+            <button onclick="logout()">Log out</button>
         </div>
     `;
     renderAccountPage(user);
 }
 
-// Рендер секции "Аккаунт"
+// Render "Account" section
 function renderAccountPage(user) {
     const wallet = localStorage.getItem("userWallet") || "";
     document.getElementById("account-info").innerHTML = `
-        <div style="margin-bottom:15px;">
-            <img src="${user.photo_url}" style="width:60px; height:60px; border-radius:50%;" />
+        <div class="account-profile">
+            <img src="${user.photo_url}" style="width:80px; height:80px; border-radius:50%;" />
             <h3>${user.first_name} ${user.last_name || ""}</h3>
-            <p><strong>ID:</strong> ${user.id}</p>
+            <p><strong>Telegram ID:</strong> ${user.id}</p>
+            <p><strong>Username:</strong> @${user.username || 'Not set'}</p>
         </div>
-        <hr>
-        <h3>💳 Кошелёк TON</h3>
-        <input type="text" id="wallet" value="${wallet}" placeholder="Введите адрес кошелька" style="width:300px; padding:6px;" />
-        <button onclick="saveWallet()" style="margin-left:5px;">Сохранить</button>
-        <p id="wallet-status" style="margin-top:10px;"></p>
+        
+        <div class="wallet-section">
+            <h3>💰 TON Wallet</h3>
+            <p style="margin-bottom: 1.5rem; color: rgba(255, 255, 255, 0.8);">
+                Connect your TON wallet to receive prize payouts automatically
+            </p>
+            <div class="wallet-input-group">
+                <input type="text" id="wallet" value="${wallet}" placeholder="Enter your TON wallet address" />
+                <button onclick="saveWallet()">Save Wallet</button>
+            </div>
+            <div id="wallet-status"></div>
+            
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border-left: 4px solid #ffd700;">
+                <h4 style="color: #ffd700; margin-bottom: 0.5rem;">💡 Wallet Tips:</h4>
+                <ul style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; padding-left: 1rem;">
+                    <li>Use only TON wallet addresses (starting with EQ...)</li>
+                    <li>Double-check your address before saving</li>
+                    <li>Payouts are processed automatically after competitions end</li>
+                    <li>Minimum payout is 0.1 TON</li>
+                </ul>
+            </div>
+        </div>
     `;
 }
 
-// Сохранение кошелька
+// Save wallet
 function saveWallet() {
-    const wallet = document.getElementById("wallet").value.trim();
+    const walletInput = document.getElementById("wallet");
+    const wallet = walletInput.value.trim();
+    const statusDiv = document.getElementById("wallet-status");
+    
     if (!wallet) {
-        document.getElementById("wallet-status").textContent = "Введите адрес!";
+        statusDiv.textContent = "Please enter a wallet address!";
+        statusDiv.className = "wallet-status-error";
         return;
     }
+    
+    // Basic TON wallet validation
+    if (!wallet.startsWith("EQ") && !wallet.startsWith("UQ")) {
+        statusDiv.textContent = "Invalid TON wallet format! Address should start with EQ or UQ";
+        statusDiv.className = "wallet-status-error";
+        return;
+    }
+    
+    if (wallet.length < 40) {
+        statusDiv.textContent = "TON wallet address is too short!";
+        statusDiv.className = "wallet-status-error";
+        return;
+    }
+    
     localStorage.setItem("userWallet", wallet);
-    document.getElementById("wallet-status").textContent = "Кошелёк сохранён ✅";
+    statusDiv.textContent = "✅ Wallet saved successfully! You're ready to receive payouts.";
+    statusDiv.className = "wallet-status-success";
+    
+    // Show success notification
+    showNotification("TON wallet connected successfully!", 'success');
 }
 
-// Выход
+// Logout
 function logout() {
-    localStorage.removeItem("telegramUser");
-    localStorage.removeItem("userWallet");
-    location.reload(); // обновляем страницу, чтобы вернулась кнопка логина
+    if (confirm("Are you sure you want to log out?")) {
+        localStorage.removeItem("telegramUser");
+        localStorage.removeItem("userWallet");
+        showNotification("Logged out successfully!", 'info');
+        setTimeout(() => {
+            location.reload(); // refresh page to show login button again
+        }, 1000);
+    }
 }
 
-// ==== При загрузке страницы ====
+// ==== On page load ====
 document.addEventListener("DOMContentLoaded", () => {
     const storedUser = localStorage.getItem("telegramUser");
     if (storedUser) {
@@ -262,5 +304,3 @@ document.addEventListener("DOMContentLoaded", () => {
         renderUserProfile(user);
     }
 });
-
-
