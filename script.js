@@ -194,4 +194,72 @@ function validateScore(game, score, data) {
         // Add other games...
     }
     return true;
+
 }
+/*
+test
+*/
+// ==== Авторизация через Telegram ====
+function onTelegramAuth(user) {
+    localStorage.setItem("telegramUser", JSON.stringify(user));
+    renderUserProfile(user);
+    showSection("account"); // сразу открыть аккаунт
+}
+
+// Рендер кнопки/аватара в хедере
+function renderUserProfile(user) {
+    const authContainer = document.getElementById("auth-container");
+    authContainer.innerHTML = `
+        <div class="user-info" style="display:flex;align-items:center;gap:10px;">
+            <img src="${user.photo_url}" style="width:40px; height:40px; border-radius:50%;" />
+            <span>${user.first_name}</span>
+            <button onclick="logout()" style="margin-left:10px; padding:4px 8px; border:none; background:#ff4444; color:white; border-radius:5px; cursor:pointer;">Выйти</button>
+        </div>
+    `;
+    renderAccountPage(user);
+}
+
+// Рендер секции "Аккаунт"
+function renderAccountPage(user) {
+    const wallet = localStorage.getItem("userWallet") || "";
+    document.getElementById("account-info").innerHTML = `
+        <div style="margin-bottom:15px;">
+            <img src="${user.photo_url}" style="width:60px; height:60px; border-radius:50%;" />
+            <h3>${user.first_name} ${user.last_name || ""}</h3>
+            <p><strong>ID:</strong> ${user.id}</p>
+        </div>
+        <hr>
+        <h3>💳 Кошелёк TON</h3>
+        <input type="text" id="wallet" value="${wallet}" placeholder="Введите адрес кошелька" style="width:300px; padding:6px;" />
+        <button onclick="saveWallet()" style="margin-left:5px;">Сохранить</button>
+        <p id="wallet-status" style="margin-top:10px;"></p>
+    `;
+}
+
+// Сохранение кошелька
+function saveWallet() {
+    const wallet = document.getElementById("wallet").value.trim();
+    if (!wallet) {
+        document.getElementById("wallet-status").textContent = "Введите адрес!";
+        return;
+    }
+    localStorage.setItem("userWallet", wallet);
+    document.getElementById("wallet-status").textContent = "Кошелёк сохранён ✅";
+}
+
+// Выход
+function logout() {
+    localStorage.removeItem("telegramUser");
+    localStorage.removeItem("userWallet");
+    location.reload(); // обновляем страницу, чтобы вернулась кнопка логина
+}
+
+// ==== При загрузке страницы ====
+document.addEventListener("DOMContentLoaded", () => {
+    const storedUser = localStorage.getItem("telegramUser");
+    if (storedUser) {
+        const user = JSON.parse(storedUser);
+        renderUserProfile(user);
+    }
+});
+
