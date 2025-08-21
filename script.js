@@ -207,12 +207,14 @@ const API_URL = "https://backend-51rt.onrender.com"
 
 async function onTelegramAuth(user) { 
     try {
+        // Сначала пробуем получить пользователя
         let response = await fetch(`${API_URL}/user/${user.id}`);
         let dbUser;
         
         if (response.ok) {
             dbUser = await response.json();
         } else {
+            // Если пользователя нет — регистрируем
             response = await fetch(`${API_URL}/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -222,7 +224,7 @@ async function onTelegramAuth(user) {
                 })
             });
             dbUser = await response.json();
-            dbUser = dbUser.user;
+            dbUser = dbUser.user; // внутри ответа user
         }
 
         renderUserProfile(dbUser);
@@ -232,6 +234,7 @@ async function onTelegramAuth(user) {
         console.error("Auth failed:", err);
     }
 }
+
 
 // Render button/avatar in header
 function renderUserProfile(user) {
@@ -469,5 +472,6 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
