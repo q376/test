@@ -203,17 +203,17 @@ function onTelegramAuth(user) {
     showSection("account"); // immediately open account section
 }
 */
+const API_URL = "https://backend-51rt.onrender.com"
+
 async function onTelegramAuth(user) { 
     try {
-        // Сначала пробуем получить пользователя
-        let response = await fetch(`/user/${user.id}`);
+        let response = await fetch(`${API_URL}/user/${user.id}`);
         let dbUser;
         
         if (response.ok) {
             dbUser = await response.json();
         } else {
-            // Если пользователя нет — регистрируем
-            response = await fetch("/register", {
+            response = await fetch(`${API_URL}/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -222,14 +222,10 @@ async function onTelegramAuth(user) {
                 })
             });
             dbUser = await response.json();
-            dbUser = dbUser.user; // внутри ответа user
+            dbUser = dbUser.user;
         }
 
-        // dbUser — это теперь пользователь из базы
         renderUserProfile(dbUser);
-
-        // Точно так же можно сохранять токен сессии
-        // localStorage.setItem("sessionUser", JSON.stringify(dbUser)); // временно
         showSection("account");
 
     } catch (err) {
@@ -473,4 +469,5 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
