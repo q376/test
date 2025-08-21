@@ -196,10 +196,45 @@ function validateScore(game, score, data) {
 }
 
 // ==== Telegram Authorization ====
+/*
 function onTelegramAuth(user) {
     localStorage.setItem("telegramUser", JSON.stringify(user));
     renderUserProfile(user);
     showSection("account"); // immediately open account section
+}
+*/
+async function onTelegramAuth(user) { 
+    try {
+        // Сначала пробуем получить пользователя
+        let response = await fetch(`/user/${user.id}`);
+        let dbUser;
+        
+        if (response.ok) {
+            dbUser = await response.json();
+        } else {
+            // Если пользователя нет — регистрируем
+            response = await fetch("/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    telegram_id: user.id,
+                    username: user.username
+                })
+            });
+            dbUser = await response.json();
+            dbUser = dbUser.user; // внутри ответа user
+        }
+
+        // dbUser — это теперь пользователь из базы
+        renderUserProfile(dbUser);
+
+        // Точно так же можно сохранять токен сессии
+        // localStorage.setItem("sessionUser", JSON.stringify(dbUser)); // временно
+        showSection("account");
+
+    } catch (err) {
+        console.error("Auth failed:", err);
+    }
 }
 
 // Render button/avatar in header
@@ -438,3 +473,4 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
