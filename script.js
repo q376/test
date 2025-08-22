@@ -249,6 +249,7 @@ function renderUserProfile(user) {
         </div>
     `;
     renderAccountPage(user);
+    showSection("account");
 }
 
 // Render "Account" section
@@ -474,6 +475,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
