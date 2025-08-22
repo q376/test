@@ -197,6 +197,40 @@ function validateScore(game, score, data) {
 
 // ==== Telegram Authorization ====
 const API_URL = "https://backend-51rt.onrender.com"
+
+async function onTelegramAuth(user) {
+    try {
+        // Проверка пользователя в базе
+        let response = await fetch(`${API_URL}/user/${user.id}`);
+        let dbUser;
+
+        if (response.ok) {
+            dbUser = await response.json();
+        } else {
+            // Если нет — регистрируем
+            response = await fetch(`${API_URL}/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    telegram_id: user.id,
+                    username: user.username,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    photo_url: user.photo_url
+                })
+            });
+            dbUser = await response.json();
+            dbUser = dbUser.user;
+        }
+
+        renderUserProfile(dbUser);  // рендерим на странице
+
+    } catch (err) {
+        console.error("Auth failed:", err);
+    }
+}
+
+
 /*
 async function onTelegramAuth(user) { 
     try {
@@ -468,3 +502,4 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
