@@ -263,12 +263,13 @@ async function onTelegramAuth(user) {
         }
 
         renderUserProfile(dbUser);
-        alert("Telegram returned:", user);
         showSection("account");
 
     } catch (err) {
         console.error("Auth failed:", err);
     }
+    return user
+    alert("Telegram returned:", user);
 }
 
 // Render button/avatar in header
@@ -507,6 +508,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
