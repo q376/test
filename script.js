@@ -229,7 +229,7 @@ async function onTelegramAuth(user) {
         // 2. Рендерим профиль на фронте
         renderUserProfile(dbUser);
         showSection("account"); // сразу открываем секцию аккаунта
-
+        alert("Telegram returned:", user);
     } catch (err) {
         console.error("Telegram auth failed:", err);
         showNotification("Authentication failed. Please try again.", "error");
@@ -506,6 +506,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
