@@ -197,46 +197,14 @@ function validateScore(game, score, data) {
 
 // ==== Telegram Authorization ====
 const API_URL = "https://backend-51rt.onrender.com"
+function onTelegramAuth(user) {
+    const authContainer = document.getElementById("auth-container");
+    authContainer.innerHTML = <div class="user-info" style="display:flex;align-items:center;">
+        <img src="${user.photo_url}" style="width:40px; height:40px; border-radius:50%; margin-right:10px;" />
+        <span style="font-size:16px;">${user.first_name}</span> </div> ;
+    localStorage.setItem("telegramUser", JSON.stringify(user)); }
+
 /*
-async function onTelegramAuth(user) {
-    try {
-        // Формируем объект для бэкенда с точными полями Telegram
-        const payload = {
-            telegram_id: user.id,
-            username: user.username || null,
-            first_name: user.first_name || null,
-            last_name: user.last_name || null,
-            photo_url: user.photo_url || null
-        };
-
-        // 1. Пытаемся получить пользователя из базы
-        let response = await fetch(`${API_URL}/user/${user.id}`);
-        let dbUser;
-
-        if (response.ok) {
-            dbUser = await response.json();
-        } else {
-            // Если пользователя нет — регистрируем
-            response = await fetch(`${API_URL}/register`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
-            dbUser = data.user; // объект user внутри ответа
-        }
-
-        // 2. Рендерим профиль на фронте
-        renderUserProfile(dbUser);
-        showSection("account"); // сразу открываем секцию аккаунта
-        alert("Telegram returned:", user);
-    } catch (err) {
-        console.error("Telegram auth failed:", err);
-        showNotification("Authentication failed. Please try again.", "error");
-    }
-}*/
-
-
 async function onTelegramAuth(user) { 
     try {
         // Сначала пробуем получить пользователя
@@ -268,9 +236,7 @@ async function onTelegramAuth(user) {
     } catch (err) {
         console.error("Auth failed:", err);
     }
-    return user
-    alert("Telegram returned:", user);
-}
+}*/
 
 // Render button/avatar in header
 function renderUserProfile(user) {
@@ -508,6 +474,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
