@@ -259,7 +259,7 @@ function renderAccountPage(user) {
         <div class="account-profile">
             <img src="${user.photo_url}" style="width:80px; height:80px; border-radius:50%;" />
             <h3>${user.first_name} ${user.last_name || ""}</h3>
-            <p><strong>Telegram ID:</strong> ${user.id}</p>
+            <p><strong>Telegram ID:</strong> ${user.telegram_id}</p>
             <p><strong>Username:</strong> @${user.username || 'Not set'}</p>
         </div>
         
@@ -475,6 +475,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
