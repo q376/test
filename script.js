@@ -213,10 +213,10 @@ async function onTelegramAuth(user) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     telegram_id: user.id,   // было user.telegram_id
-                    username: user.username || null,
-                    first_name: user.first_name || null,
-                    last_name: user.last_name || null,
-                    photo_url: user.photo_url || null
+                    username: user.username,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    photo_url: user.photo_url
                 })
             });
             dbUser = await response.json();
@@ -468,6 +468,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
