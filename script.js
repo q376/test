@@ -219,7 +219,7 @@ async function onTelegramAuth(user) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    telegram_id: user.telegram_id,
+                    telegram_id: user.id,   // было user.telegram_id
                     username: user.username,
                     first_name: user.first_name,
                     last_name: user.last_name,
@@ -475,6 +475,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
