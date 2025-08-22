@@ -197,7 +197,7 @@ function validateScore(game, score, data) {
 
 // ==== Telegram Authorization ====
 const API_URL = "https://backend-51rt.onrender.com"
-
+/*
 async function onTelegramAuth(user) {
     try {
         // Формируем объект для бэкенда с точными полями Telegram
@@ -234,9 +234,9 @@ async function onTelegramAuth(user) {
         console.error("Telegram auth failed:", err);
         showNotification("Authentication failed. Please try again.", "error");
     }
-}
+}*/
 
-/*
+
 async function onTelegramAuth(user) { 
     try {
         // Сначала пробуем получить пользователя
@@ -263,12 +263,13 @@ async function onTelegramAuth(user) {
         }
 
         renderUserProfile(dbUser);
+        alert("Telegram returned:", user);
         showSection("account");
 
     } catch (err) {
         console.error("Auth failed:", err);
     }
-}*/
+}
 
 // Render button/avatar in header
 function renderUserProfile(user) {
@@ -506,6 +507,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
