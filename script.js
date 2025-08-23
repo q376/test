@@ -207,9 +207,7 @@ function onTelegramAuth(user) {
         </div>
         `;
         localStorage.setItem("telegramUser", JSON.stringify(user)));
-        alert(user);
         }
-    alert(user);
 /*
 async function onTelegramAuth(user) {
     try {
@@ -515,6 +513,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
