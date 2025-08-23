@@ -197,7 +197,53 @@ function validateScore(game, score, data) {
 
 // ==== Telegram Authorization ====
 const API_URL = "https://backend-51rt.onrender.com"
-function onTelegramAuth(user) {
+
+async function onTelegramAuth(user) { 
+    try {
+        let dbUser;
+
+        // 1. Проверяем, есть ли пользователь в базе
+        let response = await fetch(`${API_URL}/user/${user.id}`);
+        
+        if (response.ok) {
+            dbUser = await response.json();
+        } else {
+            // 2. Если нет — регистрируем
+            response = await fetch(`${API_URL}/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    telegram_id: user.id,      // ⚡️ это правильно
+                    username: user.username || null,
+                    first_name: user.first_name || null,
+                    last_name: user.last_name || null,
+                    photo_url: user.photo_url || null
+                })
+            });
+
+            dbUser = await response.json();
+
+            // Проверим, что вернул API
+            alert("Register API response:", dbUser);
+
+            // Если API возвращает { user: { ... } }, берём dbUser.user
+            if (dbUser.user) {
+                dbUser = dbUser.user;
+            }
+        }
+
+        alert("Final dbUser:", dbUser);
+
+        renderUserProfile(dbUser);
+        showSection("account");
+
+    } catch (err) {
+        alert("Auth failed:", err);
+    }
+}
+
+
+/*function onTelegramAuth(user) {
     // Покажем всё содержимое объекта красиво
     alert(JSON.stringify(user, null, 2));
 
@@ -211,41 +257,7 @@ function onTelegramAuth(user) {
 
     localStorage.setItem("telegramUser", JSON.stringify(user));
 }
-/*
-async function onTelegramAuth(user) {
-    try {
-        // Проверка пользователя в базе
-        let response = await fetch(`${API_URL}/user/${user.id}`);
-        let dbUser;
 
-        if (response.ok) {
-            dbUser = await response.json();
-        } else {
-            // Если нет — регистрируем
-            response = await fetch(`${API_URL}/register`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    telegram_id: user.id,
-                    username: user.username,
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    photo_url: user.photo_url
-                })
-            });
-            dbUser = await response.json();
-            dbUser = dbUser.user;
-        }
-
-        renderUserProfile(dbUser);  // рендерим на странице
-
-    } catch (err) {
-        console.error("Auth failed:", err);
-    }
-}*/
-
-
-/*
 async function onTelegramAuth(user) { 
     try {
         // Сначала пробуем получить пользователя
@@ -516,6 +528,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
