@@ -221,6 +221,7 @@ async function onTelegramAuth(user) {
                     photo_url: user.photo_url || null
                 })
             });
+            alert(response);
 
             dbUser = await response.json();
 
@@ -529,6 +530,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
