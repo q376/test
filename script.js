@@ -225,7 +225,7 @@ async function onTelegramAuth(user) {
             dbUser = await response.json();
 
             // Проверим, что вернул API
-            alert("Register API response:", dbUser);
+            console.log("Register API response:", dbUser);
 
             // Если API возвращает { user: { ... } }, берём dbUser.user
             if (dbUser.user) {
@@ -233,13 +233,13 @@ async function onTelegramAuth(user) {
             }
         }
 
-        alert("Final dbUser:", dbUser);
+        console.log("Final dbUser:", dbUser);
 
         renderUserProfile(dbUser);
         showSection("account");
 
     } catch (err) {
-        alert("Auth failed:", err);
+        console.error("Auth failed:", err);
     }
 }
 
@@ -529,6 +529,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
