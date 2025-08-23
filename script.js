@@ -415,25 +415,28 @@ function optimizeForTouch() {
     });
 }
 
-// Enhanced DOMContentLoaded with mobile support
-document.addEventListener('DOMContentLoaded', function() {
-    // ==== SESSION CHECK ====
+// == SESSION CHECK ==
+async function checkSession() {
     const storedUser = localStorage.getItem("telegramUser");
-    if (storedUser) {
-        const user = JSON.parse(storedUser);
-        try {
-            const response = await fetch(`${API_URL}/session/${user.id}`);
-            if (response.ok) {
-                const sessionUser = await response.json();
-                renderUserProfile(sessionUser);
-            } else {
-                logout(); // если сессия недействительна, очистить данные
-            }
-        } catch (err) {
-            console.error("Session check failed:", err);
+    if (!storedUser) return;
+    
+    const user = JSON.parse(storedUser);
+    try {
+        const response = await fetch(`${API_URL}/session/${user.id}`);
+        if (response.ok) {
+            const sessionUser = await response.json();
+            renderUserProfile(sessionUser);
+        } else {
             logout();
         }
+    } catch (err) {
+        console.error("Session check failed:", err);
+        logout();
     }
+}
+
+// Enhanced DOMContentLoaded with mobile support
+document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize mobile menu
     initMobileMenu();
@@ -499,6 +502,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
