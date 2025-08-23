@@ -417,6 +417,24 @@ function optimizeForTouch() {
 
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
+    // ==== SESSION CHECK ====
+    const storedUser = localStorage.getItem("telegramUser");
+    if (storedUser) {
+        const user = JSON.parse(storedUser);
+        try {
+            const response = await fetch(`${API_URL}/session/${user.id}`);
+            if (response.ok) {
+                const sessionUser = await response.json();
+                renderUserProfile(sessionUser);
+            } else {
+                logout(); // если сессия недействительна, очистить данные
+            }
+        } catch (err) {
+            console.error("Session check failed:", err);
+            logout();
+        }
+    }
+    
     // Initialize mobile menu
     initMobileMenu();
     
@@ -481,7 +499,6 @@ window.addEventListener('resize', function() {
         }
     }
 });
-
 
 
 
