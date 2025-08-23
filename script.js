@@ -199,7 +199,7 @@ function validateScore(game, score, data) {
 const API_URL = "https://backend-51rt.onrender.com"
 
 async function onTelegramAuth(user) {
-    alert(JSON.stringify(user, null, 2));
+    //alert(JSON.stringify(user, null, 2));
     try {
         let dbUser;
 
@@ -530,6 +530,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
