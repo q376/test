@@ -244,55 +244,6 @@ async function onTelegramAuth(user) {
     }
 }
 
-
-/*function onTelegramAuth(user) {
-    // Покажем всё содержимое объекта красиво
-    alert(JSON.stringify(user, null, 2));
-
-    const authContainer = document.getElementById("auth-container");
-    authContainer.innerHTML = `
-        <div class="user-info" style="display:flex;align-items:center;">
-            <img src="${user.photo_url}" style="width:40px; height:40px; border-radius:50%; margin-right:10px;" />
-            <span style="font-size:16px;">${user.first_name} ${user.last_name || ""}</span>
-        </div>
-    `;
-
-    localStorage.setItem("telegramUser", JSON.stringify(user));
-}
-
-async function onTelegramAuth(user) { 
-    try {
-        // Сначала пробуем получить пользователя
-        let response = await fetch(`${API_URL}/user/${user.id}`);
-        let dbUser;
-        
-        if (response.ok) {
-            dbUser = await response.json();
-        } else {
-            // Если пользователя нет — регистрируем
-            response = await fetch(`${API_URL}/register`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    telegram_id: user.id,   // было user.telegram_id
-                    username: user.username,
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    photo_url: user.photo_url
-                })
-            });
-            dbUser = await response.json();
-            dbUser = dbUser.user; // внутри ответа user
-        }
-
-        renderUserProfile(dbUser);
-        showSection("account");
-
-    } catch (err) {
-        console.error("Auth failed:", err);
-    }
-}*/
-
 // Render button/avatar in header
 function renderUserProfile(user) {
     const authContainer = document.getElementById("auth-container");
@@ -530,6 +481,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
