@@ -197,16 +197,17 @@ function validateScore(game, score, data) {
 
 // ==== Telegram Authorization ====
 const API_URL = "https://backend-51rt.onrender.com"
-                function onTelegramAuth(user) {
-                    const authContainer = document.getElementById("auth-container");
-                        authContainer.innerHTML = `
-                            <div class="user-info" style="display:flex;align-items:center;">
-                            <img src="${user.photo_url}" style="width:40px; height:40px; border-radius:50%; margin-right:10px;" />
-                            <span style="font-size:16px;">${user.first_name}</span>
-                            </div>
-                            `;
-                            localStorage.setItem("telegramUser", JSON.stringify(user));
-                            }
+function onTelegramAuth(user) {
+    const authContainer = document.getElementById("auth-container");
+    authContainer.innerHTML = `
+        <div class="user-info" style="display:flex;align-items:center;">
+        <img src="${user.photo_url}" style="width:40px; height:40px; border-radius:50%; margin-right:10px;" />
+        <span style="font-size:16px;">${user.first_name}</span>
+        </div>
+        `;
+        localStorage.setItem("telegramUser", JSON.stringify(user));
+        alert("telegramUser", JSON.stringify(user))
+        }
 /*
 async function onTelegramAuth(user) {
     try {
@@ -512,5 +513,6 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
