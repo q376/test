@@ -414,7 +414,31 @@ function optimizeForTouch() {
         });
     });
 }
-// Check session on load
+
+async function checkSession() {
+    try {
+        const response = await fetch(`${API_URL}/auth/check`, {
+            method: "GET",
+            credentials: "include"  // <--- ключевой момент для передачи куки
+        });
+
+        if (!response.ok) {
+            throw new Error(`Ошибка: ${response.status}`);
+        }
+
+        const user = await response.json();
+        alert("Пользователь авторизован:", user);
+        // тут можно рендерить профиль или делать что-то ещё
+        renderUserProfile(user);
+
+    } catch (err) {
+        alert("Проверка сессии не прошла:", err);
+        // например, показать форму логина
+        showSection("login");
+    }
+}
+
+/* // Check session on load
 async function checkSession() {
     try {
         const response = await fetch(`${API_URL}/auth/check`, { credentials: "include" });
@@ -429,7 +453,7 @@ async function checkSession() {
         console.error("Session check failed:", err);
     }
 }
-
+*/
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -500,3 +524,4 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
