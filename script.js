@@ -260,6 +260,7 @@ function renderUserProfile(user) {
 
 // Render "Account" section
 function renderAccountPage(user) {
+    checkSession();
     const wallet = localStorage.getItem("userWallet") || "";
     document.getElementById("account-info").innerHTML = `
         <div class="account-profile">
@@ -524,4 +525,5 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
