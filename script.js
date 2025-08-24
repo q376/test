@@ -414,6 +414,21 @@ function optimizeForTouch() {
         });
     });
 }
+// Check session on load
+async function checkSession() {
+    try {
+        const response = await fetch(`${API_URL}/auth/check`, { credentials: "include" });
+        if (response.ok) {
+            const user = await response.json();
+            renderUserProfile(user);
+            showSection("account");
+        } else {
+            console.log("No active session");
+        }
+    } catch (err) {
+        console.error("Session check failed:", err);
+    }
+}
 
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
@@ -423,6 +438,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Optimize for touch devices
     optimizeForTouch();
+
+    // Check session on load
+    checkSession();
     
     // Initialize card animations
     const cards = document.querySelectorAll('.game-card, .competition-card');
@@ -482,23 +500,3 @@ window.addEventListener('resize', function() {
         }
     }
 });
-
-// == SESSION CHECK ==
-async function checkSession() {
-    const storedUser = localStorage.getItem("telegramUser");
-    if (!storedUser) return;
-    
-    const user = JSON.parse(storedUser);
-    try {
-        const response = await fetch(`${API_URL}/session/${user.id}`);
-        if (response.ok) {
-            const sessionUser = await response.json();
-            renderUserProfile(sessionUser);
-        } else {
-            logout();
-        }
-    } catch (err) {
-        console.error("Session check failed:", err);
-        logout();
-    }
-}
