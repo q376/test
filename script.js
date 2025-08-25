@@ -87,15 +87,6 @@ function closeGame() {
     }, 500);
 }
 
-// Ad simulation functions
-function showInterstitialAd() {
-    showNotification("📱 [Interstitial Ad Shown]", 'info');
-}
-
-function showRewardedAd() {
-    showNotification("🎬 [Rewarded Video Ad] +0.1 TON bonus!", 'success');
-}
-
 // Enhanced notification system with mobile support
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
@@ -181,19 +172,6 @@ window.addEventListener('message', function(event) {
         }
     }
 });
-
-function validateScore(game, score, data) {
-    // Basic anti-cheat validation
-    switch(game) {
-        case 'breakout':
-            // Check if score is reasonable for time played
-            const maxScorePerSecond = 50;
-            const gameTimeSeconds = data.gameTime / 1000;
-            return score <= (maxScorePerSecond * gameTimeSeconds);
-        // Add other games...
-    }
-    return true;
-}
 
 // ==== Telegram Authorization ====
 const API_URL = "https://backend-51rt.onrender.com"
@@ -416,22 +394,7 @@ function optimizeForTouch() {
     });
 }
 
-
-async function checkSession() {
-    const res = await fetch(`${API_URL}/auth/check`, {
-        method: "GET",
-        credentials: "include"
-    });
-    if (res.ok) {
-        const data = await res.json();
-        console.log("Session user:", data);
-        renderUserProfile(data);
-    } else {
-        console.log("No active session");
-    }
-}
-
-/* // Check session on load
+// Check session on load
 async function checkSession() {
     try {
         const response = await fetch(`${API_URL}/auth/check`, { credentials: "include" });
@@ -445,7 +408,7 @@ async function checkSession() {
     } catch (err) {
         console.error("Session check failed:", err);
     }
-}*/
+}
 
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
