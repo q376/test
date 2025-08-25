@@ -249,39 +249,26 @@ async function makeAuthenticatedRequest(url, options = {}) {
 // ==== TELEGRAM AUTHENTICATION ====
 async function onTelegramAuth(user) {
     try {
-        showNotification('Authenticating with Telegram...', 'info');
-
         const response = await fetch(`${API_URL}/auth/telegram`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user),
+            credentials: 'include' // чтобы сервер поставил HttpOnly cookie
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.detail || 'Authentication failed');
-        }
-
-        const data = await response.json();
-        
-        if (data.access_token) {
-            // Store JWT token
-            setToken(data.access_token);
-            
-            showNotification('Successfully authenticated!', 'success');
+        if (response.ok) {
+            const data = await response.json();
             renderUserProfile(data.user);
             showSection('account');
         } else {
-            throw new Error('No access token received');
+            showNotification("Ошибка авторизации", 'error');
         }
-
-    } catch (error) {
-        console.error("Auth error:", error);
-        showNotification(`Authentication failed: ${error.message}`, 'error');
+    } catch (err) {
+        console.error(err);
+        showNotification("Ошибка авторизации", 'error');
     }
 }
+
 
 // Verify current session and get user info
 async function verifyAndShowUser() {
@@ -307,6 +294,27 @@ async function verifyAndShowUser() {
         return false;
     }
 }
+
+// Пример запроса к защищенному эндпоинту с кукой
+async function fetchUserProfile() {
+    try {
+        const response = await fetch(`${API_URL}/auth/me`, {
+            method: 'GET',
+            credentials: 'include' // важно, чтобы куки слались
+        });
+
+        if (response.ok) {
+            const user = await response.json();
+            renderUserProfile(user);
+        } else if (response.status === 401) {
+            showTelegramLogin();
+        }
+    } catch (err) {
+        console.error(err);
+        showNotification("Ошибка при получении профиля", 'error');
+    }
+}
+
 
 // Render user profile in header
 function renderUserProfile(user) {
@@ -407,13 +415,17 @@ async function saveWallet() {
     }
 }
 
-// Logout function
-function logout() {
-    if (confirm("Are you sure you want to log out?")) {
-        removeToken();
-        showNotification("Logged out successfully!", 'info');
-        hideUserInfo();
+async function logout() {
+    try {
+        await fetch(`${API_URL}/auth/logout`, {
+            method: 'POST',
+            credentials: 'include'
+        });
+        showTelegramLogin();
         showSection('home');
+        showNotification("Вы вышли", 'info');
+    } catch (err) {
+        console.error(err);
     }
 }
 
@@ -1090,3 +1102,4 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
