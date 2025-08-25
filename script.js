@@ -107,22 +107,40 @@ window.addEventListener('message', async (event) => {
 });
 
 // ===== TELEGRAM AUTH =====
-async function onTelegramAuth(user){
-    try{
-        showNotification('Authenticating with Telegram...','info');
+async function onTelegramAuth(user) {
+    console.log("Telegram user object:", user);
+    const payload = {
+        telegram_id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name || "",
+        username: user.username || "",
+        photo_url: user.photo_url || "",
+        auth_date: user.auth_date,
+        hash: user.hash
+    };
+
+    try {
+        showNotification('Authenticating with Telegram...', 'info');
         const resp = await fetch(`${API_URL}/auth/telegram`, {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body:JSON.stringify(user), credentials:'include'
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            credentials: 'include'
         });
-        if(resp.ok){
+
+        if (resp.ok) {
             const data = await resp.json();
             renderUserProfile(data.user);
             showSection('account');
-            showNotification('Successfully authenticated!','success');
-        } else showNotification('Authentication failed','error');
-    }catch(err){
+            showNotification('Successfully authenticated!', 'success');
+        } else {
+            const err = await resp.json();
+            console.error(err);
+            showNotification('Authentication failed', 'error');
+        }
+    } catch (err) {
         console.error(err);
-        showNotification('Authentication failed','error');
+        showNotification('Authentication failed', 'error');
     }
 }
 
@@ -704,5 +722,6 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
