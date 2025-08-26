@@ -236,12 +236,12 @@ async function logout() {
             
             if (response.ok) {
                 showNotification("Logged out successfully! 👋", 'info');
-                showLoginButton();
+                //showLoginButton();
                 showSection('home');
             }
         } catch (error) {
             console.error('Logout error:', error);
-            //showNotification("Logout failed. Please refresh the page.", 'error');
+            showNotification("Logout failed. Please refresh the page.", 'error');
         }
     }
 }
@@ -989,6 +989,7 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
 
