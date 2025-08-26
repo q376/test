@@ -18,12 +18,6 @@ function showSection(sectionName) {
         behavior: 'smooth'
     });
 
-    // Show interstitial ad when changing sections
-    if (Math.random() < 0.3) { // 30% chance
-        showInterstitialAd();
-    }
-}
-
 // Enhanced game functionality with mobile support
 function playGame(gameId) {
     const gameMap = {
@@ -491,4 +485,5 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
