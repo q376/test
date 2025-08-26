@@ -380,13 +380,13 @@ function optimizeForTouch() {
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('🚀 CryptoVerse initializing...');
-    showLoginButton();
+    // showLoginButton();
     // Initialize mobile features
     initMobileMenu();
     optimizeForTouch();
     
     // THE MAGIC: Check if user is already logged in
-    // const isLoggedIn = await checkSession();
+    const isLoggedIn = await checkSession();
     
     if (isLoggedIn) {
         console.log('✅ User session restored - no auto logout!');
@@ -989,6 +989,7 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
 
