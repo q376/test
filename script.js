@@ -378,7 +378,7 @@ function optimizeForTouch() {
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('🚀 CryptoVerse initializing...');
-    
+    showLoginButton();
     // Initialize mobile features
     initMobileMenu();
     optimizeForTouch();
@@ -987,3 +987,4 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
