@@ -38,10 +38,12 @@ async function checkSession() {
         
         if (response.ok) {
             const user = await response.json();
+            alert("✅ User is logged in:", user);
             console.log("✅ User is logged in:", user);
             renderUserProfile(user);
             return true;
         } else {
+            alert("❌ No active session");
             console.log("❌ No active session");
             showLoginButton();
             return false;
@@ -987,5 +989,6 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
