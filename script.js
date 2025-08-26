@@ -45,12 +45,12 @@ async function checkSession() {
         } else {
             alert("❌ No active session");
             console.log("❌ No active session");
-            showLoginButton();
+            //showLoginButton();
             return false;
         }
     } catch (error) {
         console.error("Session check failed:", error);
-        showLoginButton();
+        //showLoginButton();
         return false;
     }
 }
@@ -241,7 +241,7 @@ async function logout() {
             }
         } catch (error) {
             console.error('Logout error:', error);
-            showNotification("Logout failed. Please refresh the page.", 'error');
+            //showNotification("Logout failed. Please refresh the page.", 'error');
         }
     }
 }
@@ -989,6 +989,7 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
 
