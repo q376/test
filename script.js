@@ -87,15 +87,6 @@ function closeGame() {
     }, 500);
 }
 
-// Ad simulation functions
-function showInterstitialAd() {
-    showNotification("рџ“± [Interstitial Ad Shown]", 'info');
-}
-
-function showRewardedAd() {
-    showNotification("рџЋ¬ [Rewarded Video Ad] +0.1 TON bonus!", 'success');
-}
-
 // Enhanced notification system with mobile support
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
@@ -203,7 +194,6 @@ async function onTelegramAuth(user) {
     try {
         let dbUser;
 
-        // 1. РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІ Р±Р°Р·Рµ
         let response = await fetch(`${API_URL}/user/${user.id}`);
         
         if (response.ok) {
@@ -214,7 +204,7 @@ async function onTelegramAuth(user) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    telegram_id: user.id,      // вљЎпёЏ СЌС‚Рѕ РїСЂР°РІРёР»СЊРЅРѕ
+                    telegram_id: user.id,     
                     username: user.username || null,
                     first_name: user.first_name || null,
                     last_name: user.last_name || null,
@@ -225,10 +215,10 @@ async function onTelegramAuth(user) {
 
             dbUser = await response.json();
 
-            // РџСЂРѕРІРµСЂРёРј, С‡С‚Рѕ РІРµСЂРЅСѓР» API
+            
             console.log("Register API response:", dbUser);
 
-            // Р•СЃР»Рё API РІРѕР·РІСЂР°С‰Р°РµС‚ { user: { ... } }, Р±РµСЂС‘Рј dbUser.user
+            
             if (dbUser.user) {
                 dbUser = dbUser.user;
             }
@@ -431,22 +421,6 @@ async function checkSession() {
     }
 }
 
-/* // Check session on load
-async function checkSession() {
-    try {
-        const response = await fetch(`${API_URL}/auth/check`, { credentials: "include" });
-        if (response.ok) {
-            const user = await response.json();
-            renderUserProfile(user);
-            showSection("account");
-        } else {
-            console.log("No active session");
-        }
-    } catch (err) {
-        console.error("Session check failed:", err);
-    }
-}*/
-
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -517,3 +491,4 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
