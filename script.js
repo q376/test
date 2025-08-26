@@ -140,46 +140,6 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Game score submission
-window.addEventListener('message', function(event) {
-    if (event.data.type === 'gameComplete') {
-        const { game, score, data, wallet, timestamp } = event.data;
-    
-        // Basic validation
-        if (validateScore(game, score, data)) {
-            // Send to your backend
-            fetch('/submit-score', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    wallet: wallet,
-                    game: game,
-                    score: score,
-                    gameData: data,
-                    timestamp: timestamp
-                })
-            }).then(response => {
-                if (response.ok) {
-                    showNotification(`Score ${score} saved for ${game}!`, 'success');
-                }
-            });
-        }
-    }
-});
-
-function validateScore(game, score, data) {
-    // Basic anti-cheat validation
-    switch(game) {
-        case 'breakout':
-            // Check if score is reasonable for time played
-            const maxScorePerSecond = 50;
-            const gameTimeSeconds = data.gameTime / 1000;
-            return score <= (maxScorePerSecond * gameTimeSeconds);
-        // Add other games...
-    }
-    return true;
-}
-
 // ==== Telegram Authorization ====
 const API_URL = "https://backend-51rt.onrender.com"
 
@@ -485,5 +445,6 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
