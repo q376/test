@@ -964,7 +964,7 @@ async function checkSession() {
     } catch (err) {
         console.error("Session check failed:", err);
     }
-}*/
+}
 
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
@@ -1036,6 +1036,7 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
 
