@@ -200,7 +200,7 @@ const API_URL = "https://backend-51rt.onrender.com"
 
 async function onTelegramAuth(userData) {
     try {
-      const response = await fetch("https://your-backend.onrender.com/auth/telegram", {
+      const response = await fetch(`${API_URL}/auth/telegram`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
@@ -550,6 +550,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
