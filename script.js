@@ -200,22 +200,27 @@ const API_URL = "https://backend-51rt.onrender.com"
 
 async function onTelegramAuth(userData) {
   try {
+    const payload = {
+      telegram_id: userData.id,           // Telegram даёт id, а бэк ждёт telegram_id
+      username: userData.username || null,
+      first_name: userData.first_name,
+      last_name: userData.last_name || null,
+      photo_url: userData.photo_url || null,
+    };
+
     const response = await fetch(`${API_URL}/auth/telegram`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
 
     if (response.ok && data.user) {
-      // сохраняем пользователя целиком
       localStorage.setItem("telegramUser", JSON.stringify(data.user));
       console.log("User logged in:", data.user);
-
       renderUserProfile(data.user);
     } else {
-      alert(JSON.stringify(data));
       console.error("Login error:", data);
       showNotification("Login failed", "error");
     }
@@ -224,6 +229,7 @@ async function onTelegramAuth(userData) {
     showNotification("Network error", "error");
   }
 }
+
 
 /*
 async function onTelegramAuth(user) {
@@ -541,6 +547,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
