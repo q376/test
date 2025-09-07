@@ -198,6 +198,32 @@ function validateScore(game, score, data) {
 // ==== Telegram Authorization ====
 const API_URL = "https://backend-51rt.onrender.com"
 
+async function onTelegramAuth(userData) {
+    try {
+      const response = await fetch("https://your-backend.onrender.com/auth/telegram", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // сохраняем telegram_id в localStorage
+        localStorage.setItem("telegram_id", userData.telegram_id);
+
+        console.log("User data:", data.user);
+        renderUserProfile(data.user);
+        //showUser(data.user);
+      } else {
+        console.error("Login error:", data);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  }
+
+/*
 async function onTelegramAuth(user) {
     //alert(JSON.stringify(user, null, 2));
     try {
@@ -242,7 +268,7 @@ async function onTelegramAuth(user) {
     } catch (err) {
         console.error("Auth failed:", err);
     }
-}
+}*/
 
 // Render button/avatar in header
 function renderUserProfile(user) {
@@ -416,7 +442,7 @@ function optimizeForTouch() {
     });
 }
 
-  /*/ Проверка при загрузке страницы
+// Проверка при загрузке страницы
   async function checkSession() {
     const telegramId = localStorage.getItem("telegram_id");
     if (!telegramId) {
@@ -437,8 +463,9 @@ function optimizeForTouch() {
     } catch (error) {
       console.error("Ошибка при восстановлении сессии:", error);
     }
-  }*/
-
+  }
+  
+/*
 async function checkSession() {
     const res = await fetch(`${API_URL}/auth/check`, {
         method: "GET",
@@ -451,8 +478,8 @@ async function checkSession() {
     } else {
         console.log("No active session");
     }
-}
-
+}*/
+    
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -523,6 +550,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
