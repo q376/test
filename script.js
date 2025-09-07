@@ -89,11 +89,11 @@ function closeGame() {
 
 // Ad simulation functions
 function showInterstitialAd() {
-    showNotification("рџ“± [Interstitial Ad Shown]", 'info');
+    showNotification("📢 [Interstitial Ad Shown]", 'info');
 }
 
 function showRewardedAd() {
-    showNotification("рџЋ¬ [Rewarded Video Ad] +0.1 TON bonus!", 'success');
+    showNotification("🎥 [Rewarded Video Ad] +0.1 TON bonus!", 'success');
 }
 
 // Enhanced notification system with mobile support
@@ -230,54 +230,6 @@ async function onTelegramAuth(userData) {
   }
 }
 
-
-/*
-async function onTelegramAuth(user) {
-    //alert(JSON.stringify(user, null, 2));
-    try {
-        let dbUser;
-
-        // 1. РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІ Р±Р°Р·Рµ
-        let response = await fetch(`${API_URL}/user/${user.id}`);
-        
-        if (response.ok) {
-            dbUser = await response.json();
-        } else {
-            // 2. Р•СЃР»Рё РЅРµС‚ вЂ” СЂРµРіРёСЃС‚СЂРёСЂСѓРµРј
-            response = await fetch(`${API_URL}/register`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    telegram_id: user.id,      // вљЎпёЏ СЌС‚Рѕ РїСЂР°РІРёР»СЊРЅРѕ
-                    username: user.username || null,
-                    first_name: user.first_name || null,
-                    last_name: user.last_name || null,
-                    photo_url: user.photo_url || null
-                })
-            });
-            alert(response);
-
-            dbUser = await response.json();
-
-            // РџСЂРѕРІРµСЂРёРј, С‡С‚Рѕ РІРµСЂРЅСѓР» API
-            console.log("Register API response:", dbUser);
-
-            // Р•СЃР»Рё API РІРѕР·РІСЂР°С‰Р°РµС‚ { user: { ... } }, Р±РµСЂС‘Рј dbUser.user
-            if (dbUser.user) {
-                dbUser = dbUser.user;
-            }
-        }
-
-        console.log("Final dbUser:", dbUser);
-
-        renderUserProfile(dbUser);
-        showSection("account");
-
-    } catch (err) {
-        console.error("Auth failed:", err);
-    }
-}*/
-
 // Render button/avatar in header
 function renderUserProfile(user) {
     const authContainer = document.getElementById("auth-container");
@@ -325,7 +277,6 @@ function renderAccountPage(user) {
             </div>
         </div>
     `;
-    //checkSession();
 }
 
 // Save wallet
@@ -461,22 +412,7 @@ function checkSession() {
     console.log("Нет сохранённого пользователя");
   }
 }
-  
-/*
-async function checkSession() {
-    const res = await fetch(`${API_URL}/auth/check`, {
-        method: "GET",
-        credentials: "include"
-    });
-    if (res.ok) {
-        const data = await res.json();
-        console.log("Session user:", data);
-        renderUserProfile(data);
-    } else {
-        console.log("No active session");
-    }
-}*/
-    
+     
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -547,14 +483,3 @@ window.addEventListener('resize', function() {
         }
     }
 });
-
-
-
-
-
-
-
-
-
-
-
