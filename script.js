@@ -208,17 +208,19 @@ async function onTelegramAuth(userData) {
 
     const data = await response.json();
 
-    if (response.ok) {
+    if (response.ok && data.user) {
       // сохраняем пользователя целиком
       localStorage.setItem("telegramUser", JSON.stringify(data.user));
+      console.log("User logged in:", data.user);
 
-      console.log("User data:", data.user);
       renderUserProfile(data.user);
     } else {
       console.error("Login error:", data);
+      showNotification("Login failed", "error");
     }
   } catch (error) {
     console.error("Fetch error:", error);
+    showNotification("Network error", "error");
   }
 }
 
@@ -316,7 +318,7 @@ function renderAccountPage(user) {
             </div>
         </div>
     `;
-    checkSession();
+    //checkSession();
 }
 
 // Save wallet
@@ -538,6 +540,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
