@@ -431,22 +431,6 @@ async function checkSession() {
     }
 }
 
-/* // Check session on load
-async function checkSession() {
-    try {
-        const response = await fetch(`${API_URL}/auth/check`, { credentials: "include" });
-        if (response.ok) {
-            const user = await response.json();
-            renderUserProfile(user);
-            showSection("account");
-        } else {
-            console.log("No active session");
-        }
-    } catch (err) {
-        console.error("Session check failed:", err);
-    }
-}*/
-
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -1036,6 +1020,7 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
 
