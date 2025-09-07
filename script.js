@@ -215,6 +215,7 @@ async function onTelegramAuth(userData) {
 
       renderUserProfile(data.user);
     } else {
+      alert("Login error:", data);
       console.error("Login error:", data);
       showNotification("Login failed", "error");
     }
@@ -540,6 +541,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
