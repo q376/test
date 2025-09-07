@@ -425,7 +425,7 @@ function optimizeForTouch() {
     }
 
     try {
-      const response = await fetch(`https://your-backend.onrender.com/user/${telegramId}`);
+      const response = await fetch(`${API_URL}/user/${telegramId}`);
       if (response.ok) {
         const user = await response.json();
         console.log("Restored user:", user);
@@ -524,5 +524,6 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
