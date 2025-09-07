@@ -416,6 +416,29 @@ function optimizeForTouch() {
     });
 }
 
+  // Проверка при загрузке страницы
+  async function checkSession() {
+    const telegramId = localStorage.getItem("telegram_id");
+    if (!telegramId) {
+      console.log("Нет сохранённого пользователя");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://your-backend.onrender.com/user/${telegramId}`);
+      if (response.ok) {
+        const user = await response.json();
+        console.log("Restored user:", user);
+        renderUserProfile(user);
+      } else {
+        console.log("Пользователь не найден, нужно логиниться снова");
+        localStorage.removeItem("telegram_id");
+      }
+    } catch (error) {
+      console.error("Ошибка при восстановлении сессии:", error);
+    }
+  }
+
 /*
 async function checkSession() {
     const res = await fetch(`${API_URL}/auth/check`, {
@@ -501,4 +524,5 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
