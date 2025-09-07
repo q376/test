@@ -416,7 +416,7 @@ function optimizeForTouch() {
     });
 }
 
-
+/*
 async function checkSession() {
     const res = await fetch(`${API_URL}/auth/check`, {
         method: "GET",
@@ -429,7 +429,7 @@ async function checkSession() {
     } else {
         console.log("No active session");
     }
-}
+}*/
 
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
@@ -501,3 +501,4 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
