@@ -199,29 +199,28 @@ function validateScore(game, score, data) {
 const API_URL = "https://backend-51rt.onrender.com"
 
 async function onTelegramAuth(userData) {
-    try {
-      const response = await fetch(`${API_URL}/auth/telegram`), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData),
-      });
+  try {
+    const response = await fetch(`${API_URL}/auth/telegram`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (response.ok) {
-        // сохраняем telegram_id в localStorage
-        localStorage.setItem("telegram_id", userData.telegram_id);
+    if (response.ok) {
+      // сохраняем пользователя целиком
+      localStorage.setItem("telegramUser", JSON.stringify(data.user));
 
-        console.log("User data:", data.user);
-        renderUserProfile(data.user);
-        //showUser(data.user);
-      } else {
-        console.error("Login error:", data);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
+      console.log("User data:", data.user);
+      renderUserProfile(data.user);
+    } else {
+      console.error("Login error:", data);
     }
+  } catch (error) {
+    console.error("Fetch error:", error);
   }
+}
 
 /*
 async function onTelegramAuth(user) {
@@ -443,27 +442,16 @@ function optimizeForTouch() {
 }
 
 // Проверка при загрузке страницы
-  async function checkSession() {
-    const telegramId = localStorage.getItem("telegram_id");
-    if (!telegramId) {
-      console.log("Нет сохранённого пользователя");
-      return;
-    }
-
-    try {
-      const response = await fetch(`${API_URL}/user/${telegramId}`);
-      if (response.ok) {
-        const user = await response.json();
-        console.log("Restored user:", user);
-        renderUserProfile(user);
-      } else {
-        console.log("Пользователь не найден, нужно логиниться снова");
-        localStorage.removeItem("telegram_id");
-      }
-    } catch (error) {
-      console.error("Ошибка при восстановлении сессии:", error);
-    }
+function checkSession() {
+  const storedUser = localStorage.getItem("telegramUser");
+  if (storedUser) {
+    const user = JSON.parse(storedUser);
+    console.log("Restored user:", user);
+    renderUserProfile(user);
+  } else {
+    console.log("Нет сохранённого пользователя");
   }
+}
   
 /*
 async function checkSession() {
@@ -550,6 +538,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
