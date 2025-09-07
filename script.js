@@ -416,7 +416,7 @@ function optimizeForTouch() {
     });
 }
 
-  // Проверка при загрузке страницы
+  /*/ Проверка при загрузке страницы
   async function checkSession() {
     const telegramId = localStorage.getItem("telegram_id");
     if (!telegramId) {
@@ -437,9 +437,8 @@ function optimizeForTouch() {
     } catch (error) {
       console.error("Ошибка при восстановлении сессии:", error);
     }
-  }
+  }*/
 
-/*
 async function checkSession() {
     const res = await fetch(`${API_URL}/auth/check`, {
         method: "GET",
@@ -452,7 +451,7 @@ async function checkSession() {
     } else {
         console.log("No active session");
     }
-}*/
+}
 
 // Enhanced DOMContentLoaded with mobile support
 document.addEventListener('DOMContentLoaded', function() {
@@ -524,6 +523,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
