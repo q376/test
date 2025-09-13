@@ -3,20 +3,1269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>CryptoVerse - Win Real TON Playing Games</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>TonArcade - Win Real TON Playing Games</title>
+    <style>
+/* ===== MODERN REDESIGN - MOBILE FIRST ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --accent-gradient: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    --gold-gradient: linear-gradient(45deg, #ffd700, #ff8c00);
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(255, 255, 255, 0.12);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --text-tertiary: rgba(255, 255, 255, 0.6);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 25px 80px rgba(0, 0, 0, 0.4);
+    --blur-bg: backdrop-filter: blur(20px);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--primary-gradient);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Animated background particles */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.03'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") repeat;
+    animation: particles 60s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes particles {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100px, -100px); }
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== HEADER - GLASSMORPHISM DESIGN ===== */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    var(--blur-bg);
+    z-index: 1000;
+    border-bottom: 1px solid var(--card-border);
+    transition: all 0.3s ease;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    min-height: 70px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    position: relative;
+}
+
+.logo::after {
+    content: '⚡';
+    position: absolute;
+    right: -25px;
+    top: -5px;
+    font-size: 1rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(1.05);
+}
+
+.mobile-menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    margin: 2px 0;
+    transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border-radius: 2px;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-6px, -6px);
+}
+
+/* Navigation Links */
+.nav-links {
+    display: none;
+}
+
+.nav-links.mobile-open {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.95);
+    var(--blur-bg);
+    padding: 2rem 0;
+    box-shadow: var(--shadow-xl);
+    border-top: 1px solid var(--card-border);
+    border-radius: 0 0 20px 20px;
+}
+
+.nav-links li {
+    list-style: none;
+    margin: 0;
+}
+
+.nav-links a {
+    display: block;
+    padding: 1.5rem 2rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: var(--accent-gradient);
+    transition: width 0.4s ease;
+    opacity: 0.1;
+}
+
+.nav-links a:hover::before {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: #4ecdc4;
+    padding-left: 3rem;
+    background: rgba(78, 205, 196, 0.05);
+}
+
+/* User Info */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card-bg);
+    var(--blur-bg);
+    padding: 10px 16px;
+    border-radius: 50px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.user-info img {
+    width: 36px !important;
+    height: 36px !important;
+    border: 2px solid #4ecdc4;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+}
+
+.user-info span {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.user-info button {
+    margin-left: 8px;
+    padding: 8px 12px;
+    border: none;
+    background: linear-gradient(45deg, #ff4757, #ff3742);
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.user-info button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+}
+
+/* ===== HERO SECTION - DRAMATIC REDESIGN ===== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 1rem 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(78, 205, 196, 0.2) 0%, transparent 50%);
+    animation: heroGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+    100% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 100%;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #4ecdc4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    position: relative;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% { filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.3)); }
+    100% { filter: drop-shadow(0 0 30px rgba(78, 205, 196, 0.5)); }
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    line-height: 1.4;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 400;
+}
+
+.prize-highlight {
+    background: var(--gold-gradient);
+    color: #000;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 800;
+    margin: 2rem auto;
+    display: inline-block;
+    font-size: 1rem;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.prize-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 3rem;
+    align-items: center;
+}
+
+/* ===== BUTTONS - MODERN DESIGN ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 56px;
+    min-width: 200px;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: var(--accent-gradient);
+    color: #fff;
+    box-shadow: 0 8px 30px rgba(78, 205, 196, 0.3);
+    border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 50px rgba(78, 205, 196, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    var(--blur-bg);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-4px);
+    border-color: #4ecdc4;
+    background: rgba(78, 205, 196, 0.1);
+    box-shadow: 0 15px 50px rgba(78, 205, 196, 0.2);
+}
+
+.btn:active {
+    transform: translateY(-2px);
+}
+
+/* ===== SECTIONS ===== */
+.section {
+    padding: 4rem 0;
+    display: none;
+    position: relative;
+}
+
+.section.active {
+    display: block;
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+.section h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 3rem 0 2rem 0;
+    color: #4ecdc4;
+}
+
+/* ===== GAMES SECTION - CARD REDESIGN ===== */
+.games-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.game-card {
+    background: var(--card-bg);
+    var(--blur-bg);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 1px solid var(--card-border);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-gradient);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+    border-radius: 24px 24px 0 0;
+}
+
+.game-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(78, 205, 196, 0.05) 0%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+}
+
+.game-card:hover::before {
+    transform: scaleX(1);
+}
+
+.game-card:hover::after {
+    transform: scale(1);
+}
+
+.game-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    border-color: rgba(78, 205, 196, 0.3);
+}
+
+.game-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.game-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.game-card p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.game-card .btn {
+    width: 100%;
+    min-width: auto;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    border-radius: 16px;
+}
+
+.prize-info {
+    background: var(--gold-gradient);
+    color: #000;
+    padding: 0.8rem 1.2rem;
+    border-radius: 20px;
+    margin: 1.5rem 0;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===== COMPETITIONS SECTION ===== */
+.competition-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.competition-card {
+    background: var(--card-bg);
+    var(--blur-bg);
+    border-radius: 24px;
+    padding: 2.5rem;
+    border: 1px solid var(--card-border);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.competition-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--accent-gradient);
+    border-radius: 26px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.competition-card:hover::before {
+    opacity: 0.3;
+}
+
+.competition-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.competition-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.competition-header h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+.competition-header > div {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.entry-fee {
+    background: linear-gradient(45deg, #ff4757, #ff3742);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+}
+
+.prize-pool {
+    background: var(--gold-gradient);
+    color: #000;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.competition-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.competition-card .btn {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+/* ===== ACCOUNT SECTION ===== */
+#account {
+    min-height: 100vh;
+    padding-top: 6rem;
+}
+
+#account-info {
+    max-width: 100%;
+}
+
+.account-profile {
+    background: var(--card-bg);
+    var(--blur-bg);
+    border-radius: 32px;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--card-border);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+
+.account-profile::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+    animation: profileGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes profileGlow {
+    0% { transform: scale(0.8) rotate(0deg); }
+    100% { transform: scale(1.2) rotate(10deg); }
+}
+
+.account-profile img {
+    border: 4px solid #4ecdc4;
+    box-shadow: 0 10px 40px rgba(78, 205, 196, 0.4);
+    margin-bottom: 2rem;
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+.account-profile h3 {
+    color: #4ecdc4;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 2;
+}
+
+.account-profile p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+}
+
+.account-profile strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.wallet-section {
+    background: var(--card-bg);
+    var(--blur-bg);
+    border-radius: 32px;
+    padding: 3rem 2rem;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+
+.wallet-section h3 {
+    color: #ffd700;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.wallet-section > p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+.wallet-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.wallet-input-group input {
+    width: 100%;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--card-border);
+    border-radius: 20px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    var(--blur-bg);
+    transition: all 0.3s ease;
+    font-family: 'Inter', monospace;
+}
+
+.wallet-input-group input:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    box-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.wallet-input-group input::placeholder {
+    color: var(--text-tertiary);
+}
+
+.wallet-input-group button {
+    width: 100%;
+    padding: 1.5rem;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.wallet-input-group button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(78, 205, 196, 0.4);
+}
+
+#wallet-status {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    font-weight: 600;
+    text-align: center;
+    min-height: 20px;
+    transition: all 0.3s ease;
+}
+
+.wallet-status-success {
+    background: rgba(78, 205, 196, 0.15);
+    color: #4ecdc4;
+    border: 1px solid rgba(78, 205, 196, 0.3);
+}
+
+.wallet-status-error {
+    background: rgba(255, 107, 107, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* ===== LEADERBOARD ===== */
+.leaderboard {
+    background: var(--card-bg);
+    var(--blur-bg);
+    border-radius: 24px;
+    padding: 2.5rem;
+    margin-top: 2rem;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-lg);
+}
+
+.leaderboard h3 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border-left: 4px solid #4ecdc4;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.leaderboard-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(78, 205, 196, 0.1), transparent);
+    transition: width 0.4s ease;
+}
+
+.leaderboard-item:hover::before {
+    width: 100%;
+}
+
+.leaderboard-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(8px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.leaderboard-rank {
+    font-weight: 800;
+    color: #4ecdc4;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    min-width: 40px;
+}
+
+.earnings-badge {
+    background: var(--gold-gradient);
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+/* ===== ADS - MODERN STYLE ===== */
+.ad-banner {
+    background: var(--card-bg);
+    var(--blur-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 3rem 0;
+    border: 1px dashed var(--card-border);
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.ad-banner:hover {
+    opacity: 0.8;
+    border-style: solid;
+}
+
+.content-with-ads {
+    display: block;
+}
+
+.ads-sidebar {
+    display: none;
+}
+
+.ad-sidebar {
+    background: var(--card-bg);
+    var(--blur-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px dashed var(--card-border);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    opacity: 0.5;
+}
+
+/* ===== GAME MODAL - REDESIGNED ===== */
+#game-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    var(--blur-bg);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-modal > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 0;
+    overflow: hidden;
+    border: 2px solid var(--card-border);
+}
+
+#game-modal iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: inherit;
+}
+
+#game-modal button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 68, 68, 0.9);
+    var(--blur-bg);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 10000;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 68, 68, 0.4);
+}
+
+#game-modal button:hover {
+    background: rgba(255, 68, 68, 1);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 68, 68, 0.6);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: rgba(0, 0, 0, 0.9);
+    var(--blur-bg);
+    padding: 3rem 0;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 1px solid var(--card-border);
+}
+
+footer p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card entrance animations */
+.game-card, .competition-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.game-card:nth-child(1) { animation-delay: 0.1s; }
+.game-card:nth-child(2) { animation-delay: 0.2s; }
+.game-card:nth-child(3) { animation-delay: 0.3s; }
+.game-card:nth-child(4) { animation-delay: 0.4s; }
+.game-card:nth-child(5) { animation-delay: 0.5s; }
+.game-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* ===== TABLET RESPONSIVE (768px+) ===== */
+@media (min-width: 768px) {
+    .container {
+        max-width: 1200px;
+        padding: 0 2rem;
+    }
+    
+    .logo {
+        font-size: 2rem;
+    }
+    
+    .hero h1 {
+        font-size: 5rem;
+    }
+    
+    .hero p {
+        font-size: 1.4rem;
+        max-width: 70%;
+    }
+    
+    .hero-buttons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2rem;
+    }
+    
+    .games-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+    }
+    
+    .competition-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+    }
+    
+    .competition-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .wallet-input-group {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .wallet-input-group input {
+        flex: 1;
+    }
+    
+    .wallet-input-group button {
+        width: auto;
+        min-width: 180px;
+    }
+    
+    #game-modal > div {
+        width: 90%;
+        height: 90%;
+        max-width: 1000px;
+        border-radius: 24px;
+    }
+}
+
+/* ===== DESKTOP RESPONSIVE (1024px+) ===== */
+@media (min-width: 1024px) {
+    /* Desktop Navigation */
+    .mobile-menu-toggle {
+        display: none;
+    }
+    
+    .nav-links {
+        display: flex !important;
+        position: static;
+        flex-direction: row;
+        background: none;
+        padding: 0;
+        box-shadow: none;
+        border: none;
+        gap: 3rem;
+    }
+    
+    .nav-links a {
+        padding: 0.8rem 0;
+        border: none;
+        position: relative;
+        font-size: 1rem;
+    }
+    
+    .nav-links a:hover {
+        background: none;
+        padding-left: 0;
+    }
+    
+    .nav-links a::before {
+        display: none;
+    }
+    
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--accent-gradient);
+        transition: width 0.4s ease;
+        border-radius: 2px;
+    }
+    
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+    
+    /* Desktop Layout */
+    .hero h1 {
+        font-size: 6rem;
+    }
+    
+    .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .competition-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .content-with-ads {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 3rem;
+    }
+    
+    .ads-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    #account-info {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+}
+
+/* ===== LARGE DESKTOP (1440px+) ===== */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .hero h1 {
+        font-size: 7rem;
+    }
+    
+    .games-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .section h2 {
+        font-size: 3.5rem;
+    }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --card-border: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* ===== REDUCED MOTION SUPPORT ===== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===== HIGH CONTRAST SUPPORT ===== */
+@media (prefers-contrast: high) {
+    .btn-primary {
+        border: 2px solid #fff;
+    }
+    
+    .game-card,
+    .competition-card {
+        border: 2px solid var(--card-border);
+    }
+}
+    </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <nav class="container">
-            <div class="logo">CryptoVerse</div>
+            <div class="logo">TonArcade</div>
             <ul class="nav-links">
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
-                <li><a href="#" onclick="showSection('games')">Games</a></li>
-                <li><a href="#" onclick="showSection('competitions')">Competitions</a></li>
-                <li><a href="#" onclick="showSection('rewards')">Rewards</a></li>
-                <li><a href="#" onclick="showSection('account')">My account</a></li> <!-- DANGER -->
+                <li><a href="#" onclick="showSection('home')">🏠 Home</a></li>
+                <li><a href="#" onclick="showSection('games')">🎮 Games</a></li>
+                <li><a href="#" onclick="showSection('competitions')">🏆 Tournaments</a></li>
+                <li><a href="#" onclick="showSection('rewards')">💰 Rewards</a></li>
+                <li><a href="#" onclick="showSection('account')">👤 Account</a></li>
             </ul>
             <div class="auth-buttons" id="auth-container">
                 <script async src="https://telegram.org/js/telegram-widget.js?21"
@@ -34,6 +1283,958 @@
     <section id="home" class="section active">
         <div class="hero">
             <div class="hero-content">
+                <h1>TonArcade</h1>
+                <p>🎮 Play Epic Games • 💰 Win Real TON • 🏆 Compete Globally</p>
+                <div class="prize-highlight">⚡ Daily Prizes up to 10 TON! ⚡</div>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary" onclick="showSection('games')">🚀 Start Gaming</a>
+                    <a href="#" class="btn btn-secondary" onclick="showSection('competitions')">🏆 Join Tournaments</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Banner Ad -->
+        <div class="container">
+            <div class="ad-banner">
+                🎯 Featured Sponsor - Premium Gaming Experience
+            </div>
+        </div>
+
+        <div class="container">
+            <h2>⚡ How It Works</h2>
+            
+            <div class="content-with-ads">
+                <div class="main-content">
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <span class="game-icon">🎮</span>
+                            <h3>Play Free Games</h3>
+                            <p>Jump into our arcade and start earning TON from our ad-supported free games.</p>
+                            <div class="prize-info">🎯 Free Daily: 0.1-0.5 TON</div>
+                        </div>
+                        <div class="game-card">
+                            <span class="game-icon">🏆</span>
+                            <h3>Enter Tournaments</h3>
+                            <p>Join competitive tournaments with real money stakes and massive prize pools.</p>
+                            <div class="prize-info">💰 Paid Events: 1-100 TON+</div>
+                        </div>
+                        <div class="game-card">
+                            <span class="game-icon">⚡</span>
+                            <h3>Instant Payouts</h3>
+                            <p>Get paid automatically to your TON wallet immediately after competitions end.</p>
+                            <div class="prize-info">🚀 Lightning Fast!</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ads-sidebar">
+                    <div class="ad-sidebar">🎯 Gaming<br>Sponsors<br>300x250</div>
+                    <div class="ad-sidebar">💰 Crypto<br>Partners<br>300x600</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Another Banner Ad -->
+        <div class="container">
+            <div class="ad-banner">
+                🚀 Powered by TON Blockchain - Secure & Fast Transactions
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="section">
+        <div class="container">
+            <h2>🎮 Game Hub</h2>
+            
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                🎯 Game Zone Sponsors - Level Up Your Experience
+            </div>
+            
+            <div class="content-with-ads">
+                <div class="main-content">
+                    <h3>🧠 Strategy Games</h3>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-icon">♟️</div>
+                            <h3>Chess Masters</h3>
+                            <p>Classic chess battles against players worldwide!</p>
+                            <button class="btn btn-primary" onclick="playGame('chess')">🚀 Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">⚫</div>
+                            <h3>Checkers Pro</h3>
+                            <p>Strategic checkers with tournament prize pools!</p>
+                            <button class="btn btn-primary" onclick="playGame('checkers')">🚀 Play Now</button>
+                        </div>
+                    </div>
+
+                    <h3>🎪 Arcade Classics</h3>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-icon">🦅</div>
+                            <h3>Flappy Crypto</h3>
+                            <p>Navigate through pipes in this addictive arcade hit!</p>
+                            <button class="btn btn-primary" onclick="playGame('flappy')">🚀 Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">🔢</div>
+                            <h3>2048 Fusion</h3>
+                            <p>Merge tiles to reach 2048 and beyond!</p>
+                            <button class="btn btn-primary" onclick="playGame('2048')">🚀 Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">🐍</div>
+                            <h3>Snake Evolution</h3>
+                            <p>Grow your snake without hitting the walls!</p>
+                            <button class="btn btn-primary" onclick="playGame('snake')">🚀 Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">🎴</div>
+                            <h3>Memory Master</h3>
+                            <p>Test your memory by matching card pairs!</p>
+                            <button class="btn btn-primary" onclick="playGame('memory')">🚀 Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">💣</div>
+                            <h3>Mine Sweeper Pro</h3>
+                            <p>Clear the minefield without triggering explosions!</p>
+                            <button class="btn btn-primary" onclick="playGame('minesweeper')">🚀 Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">💥</div>
+                            <h3>Brick Breaker</h3>
+                            <p>Destroy all bricks with precision and skill!</p>
+                            <button class="btn btn-primary" onclick="playGame('breakout')">🚀 Play Now</button>
+                        </div>
+                    </div>
+
+                    <h3>🎰 Casino Zone (Fun Only!)</h3>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-icon">🎰</div>
+                            <h3>Crypto Slots</h3>
+                            <p>Spin the reels for fun rewards!</p>
+                            <button class="btn btn-primary" onclick="playGame('slots')">🚀 Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">♠️</div>
+                            <h3>Blackjack 21</h3>
+                            <p>Beat the dealer in this classic card game!</p>
+                            <button class="btn btn-primary" onclick="playGame('blackjack')">🚀 Play Now</button>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-icon">🎱</div>
+                            <h3>Plinko Drop</h3>
+                            <p>Watch your chip bounce to victory!</p>
+                            <button class="btn btn-primary" onclick="playGame('plinko')">🚀 Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ads-sidebar">
+                    <div class="ad-sidebar">🎮 Gaming<br>Hardware<br>300x250</div>
+                    <div class="ad-sidebar">🚀 Crypto<br>Tools<br>300x250</div>
+                    <div class="ad-sidebar">🎯 Sponsored<br>Games<br>300x250</div>
+                </div>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                💰 Win Big - Join Today's Tournaments for Massive Prizes!
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitions Section -->
+    <section id="competitions" class="section">
+        <div class="container">
+            <h2>🏆 Tournaments</h2>
+            
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                🏆 Tournament Sponsors - Compete for Glory and TON!
+            </div>
+            
+            <div class="content-with-ads">
+                <div class="main-content">
+                    <h3>🆓 Free Tournaments</h3>
+                    <div class="competition-grid">
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>⚡ Daily Chess Blitz</h4>
+                                <div>
+                                    <span class="entry-fee" style="background: linear-gradient(45deg, #4ecdc4, #45b7d1); color: #000;">FREE</span>
+                                    <span class="prize-pool">0.5 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Lightning-fast chess tournament funded by our sponsors!</p>
+                            <p><strong>⏰ Ends:</strong> Today 11:59 PM</p>
+                            <p><strong>👥 Players:</strong> 34/100</p>
+                            <button class="btn btn-primary">🚀 Join Free</button>
+                        </div>
+
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>🧩 Puzzle Rush Hour</h4>
+                                <div>
+                                    <span class="entry-fee" style="background: linear-gradient(45deg, #4ecdc4, #45b7d1); color: #000;">FREE</span>
+                                    <span class="prize-pool">0.3 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Best combined score across all puzzle games wins big!</p>
+                            <p><strong>⏰ Ends:</strong> Today 11:59 PM</p>
+                            <p><strong>👥 Players:</strong> 67/∞</p>
+                            <button class="btn btn-primary">🚀 Join Free</button>
+                        </div>
+
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>🧠 Trivia Champions</h4>
+                                <div>
+                                    <span class="entry-fee" style="background: linear-gradient(45deg, #4ecdc4, #45b7d1); color: #000;">FREE</span>
+                                    <span class="prize-pool">0.2 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Weekly trivia with sponsor-backed prizes!</p>
+                            <p><strong>⏰ Ends:</strong> Friday 8:00 PM</p>
+                            <p><strong>👥 Players:</strong> 89/∞</p>
+                            <button class="btn btn-primary">🚀 Join Free</button>
+                        </div>
+                    </div>
+
+                    <h3>💎 Premium Tournaments</h3>
+                    <div class="competition-grid">
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>👑 Grand Chess Championship</h4>
+                                <div>
+                                    <span class="entry-fee">1 TON Entry</span>
+                                    <span class="prize-pool">10 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Elite chess tournament - Winner takes 70% of the pool!</p>
+                            <p><strong>⏰ Ends:</strong> Today 11:59 PM</p>
+                            <p><strong>👥 Players:</strong> 8/12</p>
+                            <button class="btn btn-primary">💰 Enter (1 TON)</button>
+                        </div>
+
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>⚡ Weekly Code Battle</h4>
+                                <div>
+                                    <span class="entry-fee">2 TON Entry</span>
+                                    <span class="prize-pool">50 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Algorithmic challenges - Top 3 split the massive pot!</p>
+                            <p><strong>⏰ Ends:</strong> Sunday 11:59 PM</p>
+                            <p><strong>👥 Players:</strong> 23/30</p>
+                            <button class="btn btn-primary">💰 Enter (2 TON)</button>
+                        </div>
+
+                        <div class="competition-card">
+                            <div class="competition-header">
+                                <h4>🎯 Multi-Game Arena</h4>
+                                <div>
+                                    <span class="entry-fee">0.5 TON Entry</span>
+                                    <span class="prize-pool">15 TON Pool</span>
+                                </div>
+                            </div>
+                            <p>Ultimate tournament across chess, puzzles, and arcade games!</p>
+                            <p><strong>⏰ Ends:</strong> Saturday 6:00 PM</p>
+                            <p><strong>👥 Players:</strong> 28/40</p>
+                            <button class="btn btn-primary">💰 Enter (0.5 TON)</button>
+                        </div>
+                    </div>
+
+                    <h3>🔮 Coming Soon</h3>
+                    <div class="competition-grid">
+                        <div class="competition-card" style="opacity: 0.8;">
+                            <div class="competition-header">
+                                <h4>🌟 TonArcade Championship</h4>
+                                <div>
+                                    <span class="entry-fee">5 TON Entry</span>
+                                    <span class="prize-pool">500+ TON Prize</span>
+                                </div>
+                            </div>
+                            <p>The ultimate gaming championship with legendary prizes!</p>
+                            <p><strong>🚀 Starts:</strong> Next Monday</p>
+                            <p><strong>📝 Registration:</strong> Opens Soon</p>
+                            <button class="btn btn-secondary" disabled>⏳ Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ads-sidebar">
+                    <div class="ad-sidebar">🏆 Tournament<br>Sponsors<br>300x250</div>
+                    <div class="ad-sidebar">💰 Crypto<br>Exchanges<br>300x250</div>
+                    <div class="ad-sidebar">🎮 Gaming<br>Partners<br>300x250</div>
+                </div>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                ⚡ Join the Gaming Revolution - Compete, Win, Earn TON!
+            </div>
+        </div>
+    </section>
+
+    <!-- Rewards Section -->
+    <section id="rewards" class="section">
+        <div class="container">
+            <h2>💰 Rewards & Leaderboard</h2>
+            
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                💎 Top Earners Get Exclusive Rewards - Climb the Ranks!
+            </div>
+            
+            <div class="content-with-ads">
+                <div class="main-content">
+                    <div class="leaderboard">
+                        <h3>🏆 Weekly Champions</h3>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#1</span>
+                                <strong>⚡ ChessMaster2024</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">15.5 TON</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#2</span>
+                                <strong>🚀 CodeNinja</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">12.3 TON</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#3</span>
+                                <strong>🧠 QuizKing</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">8.7 TON</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#4</span>
+                                <strong>🎮 ArcadeHero</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">6.2 TON</span>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div>
+                                <span class="leaderboard-rank">#5</span>
+                                <strong>🧩 PuzzlePro</strong>
+                            </div>
+                            <div>
+                                <span class="earnings-badge">4.8 TON</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 3rem; text-align: center; padding: 3rem; background: var(--card-bg); var(--blur-bg); border-radius: 24px; border: 1px solid var(--card-border);">
+                        <h3>💎 Your Earnings</h3>
+                        <p style="font-size: 2rem; margin: 1.5rem 0; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800;"><span id="user-earnings">0</span> TON</p>
+                        <p style="color: var(--text-secondary);">Connect with Telegram to start your gaming journey!</p>
+                        <button class="btn btn-primary" onclick="showUserProfile()" style="margin-top: 1.5rem;">🚀 View Profile</button>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 3rem; background: var(--card-bg); var(--blur-bg); border-radius: 24px; border: 1px solid var(--card-border);">
+                        <h3>⚡ Payout Schedule</h3>
+                        <div style="display: grid; gap: 1rem; margin-top: 1.5rem;">
+                            <div style="padding: 1rem; background: rgba(78, 205, 196, 0.1); border-radius: 12px; border-left: 4px solid #4ecdc4;">
+                                <strong>🌅 Daily Tournaments:</strong> Paid at 12:00 AM UTC
+                            </div>
+                            <div style="padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 12px; border-left: 4px solid #ffd700;">
+                                <strong>📅 Weekly Events:</strong> Paid every Monday 12:00 AM UTC
+                            </div>
+                            <div style="padding: 1rem; background: rgba(255, 107, 107, 0.1); border-radius: 12px; border-left: 4px solid #ff6b6b;">
+                                <strong>🏆 Special Tournaments:</strong> Paid immediately after completion
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ads-sidebar">
+                    <div class="ad-sidebar">💰 Crypto<br>Wallets<br>300x250</div>
+                    <div class="ad-sidebar">📈 Trading<br>Platforms<br>300x250</div>
+                    <div class="ad-sidebar">🔥 DeFi<br>Services<br>300x250</div>
+                </div>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                🎯 Maximize Your Earnings - Join Premium Tournaments Today!
+            </div>
+        </div>
+    </section>
+
+    <!-- Account Section -->
+    <section id="account" class="section">
+        <div class="container">
+            <h2>👤 My Account</h2>
+            <div id="account-info">
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer with Ad -->
+    <div class="container">
+        <div class="ad-banner">
+            🚀 TonArcade Partners - Gaming Excellence Powered by TON
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TonArcade. All rights reserved. | ⚡ Powered by TON Blockchain</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">🎮 Play Responsibly | 💰 Real Money Gaming | 🔒 Secure TON Payments | 🌟 Join the Gaming Revolution</p>
+        </div>
+    </footer>
+
+    <!-- Game Player Modal -->
+    <div id="game-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center;">
+        <div style="position:relative; width:90%; max-width:800px; height:90%; background:#000; border-radius:12px; overflow:hidden; border: 2px solid rgba(78, 205, 196, 0.3);">
+            <iframe id="game-frame" src="" style="width:100%; height:100%; border:none; border-radius:inherit;"></iframe>
+            <button onclick="closeGame()" style="position:absolute; top:15px; right:15px; background:rgba(255, 68, 68, 0.9); backdrop-filter: blur(10px); color:white; border:none; padding:12px 16px; border-radius:12px; cursor:pointer; font-weight:700; font-size:0.9rem; box-shadow: 0 4px 15px rgba(255, 68, 68, 0.4); transition: all 0.3s ease;">
+                ✖ Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+// Section navigation
+function showSection(sectionName) {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    document.getElementById(sectionName).classList.add('active');
+    
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.style.color = '#fff';
+    });
+    
+    // Smooth scroll to top with mobile consideration
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+
+    // Show interstitial ad when changing sections
+    if (Math.random() < 0.3) { // 30% chance
+        showInterstitialAd();
+    }
+}
+
+// Enhanced game functionality with mobile support
+function playGame(gameId) {
+    const gameMap = {
+        "flappy": "games/flappy/index.html",
+        "2048": "games/2048/index.html",
+        "snake": "games/snake/snaki.html",
+        "memory": "games/memory/index.html",
+        "chess": "games/chess/index.html",
+        "checkers": "games/checkers/index.html",
+        "plinko": "games/plinko/index.html",
+        "slots": "games/slots/index.html",
+        "blackjack": "games/blackjack/index.html",
+        "breakout": "games/breakout/index.html",
+        "minesweeper": "games/minesweeper/index.html",
+    };
+
+    const gameUrl = gameMap[gameId];
+    if (!gameUrl) {
+        showNotification("🚀 Game coming soon!", 'info');
+        return;
+    }
+
+    // Lock screen orientation for mobile games if possible
+    if (screen.orientation && screen.orientation.lock) {
+        try {
+            screen.orientation.lock('portrait').catch(() => {
+                // Ignore if orientation lock fails
+            });
+        } catch (e) {
+            // Ignore orientation lock errors
+        }
+    }
+
+    document.getElementById("game-frame").src = gameUrl;
+    document.getElementById("game-modal").style.display = "flex";
+    
+    // Show rewarded ad option with mobile-friendly timing
+    setTimeout(() => {
+        if (confirm("🎥 Watch a short ad to double your potential winnings for this game?")) {
+            showNotification("⚡ Winnings multiplier activated! Good luck!", 'success');
+        }
+    }, 3000); // Longer delay for mobile users
+}
+
+function closeGame() {
+    document.getElementById("game-frame").src = "";
+    document.getElementById("game-modal").style.display = "none";
+    
+    // Unlock orientation
+    if (screen.orientation && screen.orientation.unlock) {
+        try {
+            screen.orientation.unlock();
+        } catch (e) {
+            // Ignore orientation unlock errors
+        }
+    }
+    
+    // Show end-game ad
+    setTimeout(() => {
+        showNotification("🏆 Great game! Check out today's tournaments!", 'info');
+    }, 500);
+}
+
+// Ad simulation functions
+function showInterstitialAd() {
+    showNotification("🎯 [Sponsor Message]", 'info');
+}
+
+function showRewardedAd() {
+    showNotification("🎥 [Rewarded Video] +0.1 TON bonus!", 'success');
+}
+
+// Enhanced notification system with mobile support
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    
+    // Check if mobile
+    const isMobile = window.innerWidth <= 768;
+    
+    notification.style.cssText = `
+        position: fixed;
+        ${isMobile ? 'top: 90px; right: 15px; left: 15px; width: auto; max-width: none;' : 'top: 90px; right: 30px; max-width: 350px;'}
+        padding: 1.5rem 2rem;
+        border-radius: 16px;
+        z-index: 10000;
+        animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        word-wrap: break-word;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-weight: 600;
+    `;
+    
+    switch(type) {
+        case 'success':
+            notification.style.background = 'linear-gradient(135deg, rgba(78, 205, 196, 0.9), rgba(69, 183, 209, 0.9))';
+            break;
+        case 'error':
+            notification.style.background = 'linear-gradient(135deg, rgba(255, 107, 107, 0.9), rgba(255, 87, 34, 0.9))';
+            break;
+        case 'info':
+            notification.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9))';
+            break;
+    }
+    
+    notification.style.color = 'white';
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        setTimeout(() => notification.remove(), 400);
+    }, 4000);
+}
+
+function showUserProfile() {
+    showNotification('🔗 Please connect with Telegram to view your profile', 'info');
+}
+
+// Header scroll effect
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+        header.style.background = 'rgba(0, 0, 0, 0.95)';
+        header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+    } else {
+        header.style.background = 'rgba(0, 0, 0, 0.85)';
+        header.style.boxShadow = 'none';
+    }
+});
+
+// Game score submission
+window.addEventListener('message', function(event) {
+    if (event.data.type === 'gameComplete') {
+        const { game, score, data, wallet, timestamp } = event.data;
+    
+        // Basic validation
+        if (validateScore(game, score, data)) {
+            // Send to your backend
+            fetch('/submit-score', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    wallet: wallet,
+                    game: game,
+                    score: score,
+                    gameData: data,
+                    timestamp: timestamp
+                })
+            }).then(response => {
+                if (response.ok) {
+                    showNotification(`🎯 Score ${score} saved for ${game}!`, 'success');
+                }
+            });
+        }
+    }
+});
+
+function validateScore(game, score, data) {
+    // Basic anti-cheat validation
+    switch(game) {
+        case 'breakout':
+            // Check if score is reasonable for time played
+            const maxScorePerSecond = 50;
+            const gameTimeSeconds = data.gameTime / 1000;
+            return score <= (maxScorePerSecond * gameTimeSeconds);
+        // Add other games...
+    }
+    return true;
+}
+
+// ==== Telegram Authorization ====
+const API_URL = "https://backend-51rt.onrender.com"
+
+async function onTelegramAuth(userData) {
+  try {
+    const payload = {
+      telegram_id: userData.id,           // Telegram даёт id, а бэк ждёт telegram_id
+      username: userData.username || null,
+      first_name: userData.first_name,
+      last_name: userData.last_name || null,
+      photo_url: userData.photo_url || null,
+    };
+
+    const response = await fetch(`${API_URL}/auth/telegram`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.user) {
+      console.log("User logged in:", data.user);
+      renderUserProfile(data.user);
+    } else {
+      console.error("Login error:", data);
+      showNotification("🚫 Login failed", "error");
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+    showNotification("🌐 Network error", "error");
+  }
+}
+
+// Render button/avatar in header
+function renderUserProfile(user) {
+    const authContainer = document.getElementById("auth-container");
+    authContainer.innerHTML = `
+        <div class="user-info">
+            <img src="${user.photo_url}" style="width:36px; height:36px; border-radius:50%;" />
+            <span>${user.first_name}</span>
+            <button onclick="logout()">Logout</button>
+        </div>
+    `;
+    renderAccountPage(user);
+    showSection("account");
+}
+
+// Render "Account" section
+function renderAccountPage(user) {
+    const wallet = user.wallet_address || "";
+    document.getElementById("account-info").innerHTML = `
+        <div class="account-profile">
+            <img src="${user.photo_url}" style="width:100px; height:100px; border-radius:50%;" />
+            <h3>${user.first_name} ${user.last_name || ""}</h3>
+            <p><strong>🆔 Telegram ID:</strong> ${user.telegram_id}</p>
+            <p><strong>👤 Username:</strong> @${user.username || 'Not set'}</p>
+            <p><strong>💰 Total Earnings:</strong> ${user.total_earnings || 0} TON</p>
+        </div>
+        
+        <div class="wallet-section">
+            <h3>⚡ TON Wallet</h3>
+            <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+                🔗 Connect your TON wallet to receive prize payouts automatically
+            </p>
+            <div class="wallet-input-group">
+                <input type="text" id="wallet" value="${wallet}" placeholder="Enter your TON wallet address (EQ...)" />
+                <button onclick="saveWallet()">💾 Save Wallet</button>
+            </div>
+            <div id="wallet-status"></div>
+            
+            <div style="margin-top: 2.5rem; padding: 2rem; background: rgba(255, 215, 0, 0.1); border-radius: 20px; border-left: 4px solid #ffd700;">
+                <h4 style="color: #ffd700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    ⚡ Wallet Tips:
+                </h4>
+                <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.5rem; list-style: none;">
+                    <li style="margin-bottom: 0.5rem;">🎯 Use only TON wallet addresses (starting with EQ...)</li>
+                    <li style="margin-bottom: 0.5rem;">🔍 Double-check your address before saving</li>
+                    <li style="margin-bottom: 0.5rem;">⚡ Payouts are processed automatically after competitions end</li>
+                    <li style="margin-bottom: 0.5rem;">💎 Minimum payout is 0.1 TON</li>
+                </ul>
+            </div>
+        </div>
+    `;
+}
+
+// Save wallet
+function saveWallet() {
+    const walletInput = document.getElementById("wallet");
+    const wallet = walletInput.value.trim();
+    const statusDiv = document.getElementById("wallet-status");
+    
+    if (!wallet) {
+        statusDiv.textContent = "⚠️ Please enter a wallet address!";
+        statusDiv.className = "wallet-status-error";
+        return;
+    }
+    
+    // Basic TON wallet validation
+    if (!wallet.startsWith("EQ") && !wallet.startsWith("UQ")) {
+        statusDiv.textContent = "❌ Invalid TON wallet format! Address should start with EQ or UQ";
+        statusDiv.className = "wallet-status-error";
+        return;
+    }
+    
+    if (wallet.length < 40) {
+        statusDiv.textContent = "📏 TON wallet address is too short!";
+        statusDiv.className = "wallet-status-error";
+        return;
+    }
+    
+    statusDiv.textContent = "✅ Wallet saved successfully! You're ready to receive payouts.";
+    statusDiv.className = "wallet-status-success";
+    
+    // Show success notification
+    showNotification("⚡ TON wallet connected successfully!", 'success');
+}
+
+// Logout
+function logout() {
+    if (confirm("🤔 Are you sure you want to log out?")) {
+        showNotification("👋 Logged out successfully!", 'info');
+        setTimeout(() => {
+            location.reload(); // refresh page to show login button again
+        }, 1000);
+    }
+}
+
+// ===== MOBILE FUNCTIONALITY =====
+
+// Mobile Menu Toggle Functionality
+function initMobileMenu() {
+    // Add mobile menu toggle to nav
+    const nav = document.querySelector('nav');
+    const navLinks = document.querySelector('.nav-links');
+    
+    // Create mobile menu toggle button
+    const mobileToggle = document.createElement('div');
+    mobileToggle.className = 'mobile-menu-toggle';
+    mobileToggle.innerHTML = `
+        <span></span>
+        <span></span>
+        <span></span>
+    `;
+    
+    // Insert mobile toggle before nav-links
+    nav.insertBefore(mobileToggle, navLinks);
+    
+    // Toggle mobile menu
+    mobileToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('mobile-open');
+    });
+    
+    // Close mobile menu when clicking on links
+    const navLinksItems = navLinks.querySelectorAll('a');
+    navLinksItems.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('mobile-open');
+        });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!nav.contains(e.target)) {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('mobile-open');
+        }
+    });
+}
+
+// Optimize for touch devices
+function optimizeForTouch() {
+    // Add touch-friendly hover effects
+    const cards = document.querySelectorAll('.game-card, .competition-card');
+    cards.forEach(card => {
+        card.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.98)';
+        });
+        
+        card.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+    
+    // Prevent zoom on input focus for mobile
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            if (window.innerWidth < 768) {
+                const viewport = document.querySelector('meta[name=viewport]');
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+            }
+        });
+        
+        input.addEventListener('blur', function() {
+            if (window.innerWidth < 768) {
+                const viewport = document.querySelector('meta[name=viewport]');
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+            }
+        });
+    });
+}
+
+// Enhanced DOMContentLoaded with mobile support
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Initialize mobile menu
+    initMobileMenu();
+    
+    // Optimize for touch devices
+    optimizeForTouch();
+    
+    // Initialize card animations
+    const cards = document.querySelectorAll('.game-card, .competition-card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Animate cards on scroll
+    function animateOnScroll() {
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible) {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+    animateOnScroll(); // Initial check
+
+    // Welcome message
+    setTimeout(() => {
+        showNotification('🎮 Welcome to TonArcade! Start playing to earn TON!', 'info');
+    }, 2000);
+});
+
+// Handle orientation changes
+window.addEventListener('orientationchange', function() {
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 100);
+});
+
+// Handle window resize
+window.addEventListener('resize', function() {
+    // Close mobile menu on resize
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileToggle && navLinks) {
+        if (window.innerWidth > 1024) {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('mobile-open');
+        }
+    }
+});
+
+// Add slideOut animation
+const style = document.createElement('style');
+style.textContent = `
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+`;
+document.head.appendChild(style);
+
+    </script>
+</body>
+</html>
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>CryptoVerse - Win Real TON Playing Games</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header --*>
+    <header>
+        <nav class="container">
+            <div class="logo">CryptoVerse</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('games')">Games</a></li>
+                <li><a href="#" onclick="showSection('competitions')">Competitions</a></li>
+                <li><a href="#" onclick="showSection('rewards')">Rewards</a></li>
+                <li><a href="#" onclick="showSection('account')">My account</a></li>
+            </ul>
+            <div class="auth-buttons" id="auth-container">
+                <script async src="https://telegram.org/js/telegram-widget.js?21"
+                    data-telegram-login="tongames_test_bot"
+                    data-size="large"
+                    data-userpic="true"
+                    data-onauth="onTelegramAuth(user)"
+                    data-request-access="write">
+                </script>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Section --*>
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-content">
                 <h1>CryptoVerse</h1>
                 <p>Play Games. Win Real TON. Compete for Prizes.</p>
                 <div class="prize-highlight">💰 Daily Prizes up to 10 TON!</div>
@@ -44,7 +2245,7 @@
             </div>
         </div>
 
-        <!-- Top Banner Ad -->
+        <!-- Top Banner Ad --*>
         <div class="container">
             <div class="ad-banner">
                 📱 Advertisement Space - 728x90 Banner
@@ -85,7 +2286,7 @@
             </div>
         </div>
 
-        <!-- Another Banner Ad -->
+        <!-- Another Banner Ad --*>
         <div class="container">
             <div class="ad-banner">
                 📱 Advertisement Space - 728x90 Banner
@@ -93,12 +2294,12 @@
         </div>
     </section>
 
-    <!-- Games Section -->
+    <!-- Games Section --*>
     <section id="games" class="section">
         <div class="container">
             <h2>🎮 Games</h2>
             
-            <!-- Ad Banner -->
+            <!-- Ad Banner --*>
             <div class="ad-banner">
                 📱 Games Section Ad - 728x90 Banner
             </div>
@@ -190,19 +2391,19 @@
                 </div>
             </div>
 
-            <!-- Ad Banner -->
+            <!-- Ad Banner --*>
             <div class="ad-banner">
                 📱 Between Games Ad - 728x90 Banner
             </div>
         </div>
     </section>
 
-    <!-- Competitions Section -->
+    <!-- Competitions Section --*>
     <section id="competitions" class="section">
         <div class="container">
             <h2>🏆 Competitions</h2>
             
-            <!-- Ad Banner -->
+            <!-- Ad Banner --*>
             <div class="ad-banner">
                 📱 Competitions Ad - 728x90 Banner
             </div>
@@ -324,19 +2525,19 @@
                 </div>
             </div>
 
-            <!-- Ad Banner -->
+            <!-- Ad Banner --*>
             <div class="ad-banner">
                 📱 Competition Footer Ad - 728x90 Banner
             </div>
         </div>
     </section>
 
-    <!-- Rewards Section -->
+    <!-- Rewards Section --*>
     <section id="rewards" class="section">
         <div class="container">
             <h2>💰 Rewards & Earnings</h2>
             
-            <!-- Ad Banner -->
+            <!-- Ad Banner --*>
             <div class="ad-banner">
                 📱 Rewards Section Ad - 728x90 Banner
             </div>
@@ -416,14 +2617,14 @@
                 </div>
             </div>
 
-            <!-- Ad Banner -->
+            <!-- Ad Banner --*>
             <div class="ad-banner">
                 📱 Rewards Footer Ad - 728x90 Banner
             </div>
         </div>
     </section>
 
-    <!-- DANGER -->
+    <!-- DANGER --*>
 
     <section id="account" class="section">
         <h2>My account</h2>
@@ -433,7 +2634,7 @@
 
     </section>
     
-    <!-- Footer with Ad -->
+    <!-- Footer with Ad --*>
     <div class="container">
         <div class="ad-banner">
             📱 Footer Ad - 728x90 Banner
@@ -447,7 +2648,7 @@
         </div>
     </footer>
 
-    <!-- Game Player Modal -->
+    <!-- Game Player Modal --*>
     <div id="game-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
         <div style="position:relative; width:90%; max-width:800px; height:90%; background:#000; border-radius:12px; overflow:hidden;">
             <iframe id="game-frame" src="" style="width:100%; height:100%; border:none;"></iframe>
@@ -460,21 +2661,4 @@
     <script src="script.js"></script>
 </body>
 
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</html>-->
