@@ -257,8 +257,67 @@ function renderAccountPage(user) {
         </div>
     `;
 }
+async function saveWallet() {
+    const walletInput = document.getElementById("wallet");
+    const wallet = walletInput.value.trim();
+    const statusDiv = document.getElementById("wallet-status");
 
-// Save wallet
+    if (!wallet) {
+        statusDiv.textContent = "Please enter a wallet address!";
+        statusDiv.className = "wallet-status-error";
+        return;
+    }
+
+    if (!wallet.startsWith("EQ") && !wallet.startsWith("UQ")) {
+        statusDiv.textContent = "Invalid TON wallet format! Address should start with EQ or UQ";
+        statusDiv.className = "wallet-status-error";
+        return;
+    }
+
+    if (wallet.length < 40) {
+        statusDiv.textContent = "TON wallet address is too short!";
+        statusDiv.className = "wallet-status-error";
+        return;
+    }
+
+    // достаем юзера из localStorage (ты сохраняешь его в onTelegramAuth)
+    const storedUser = JSON.parse(localStorage.getItem("telegramUser"));
+    if (!storedUser) {
+        showNotification("Please log in with Telegram first", "error");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/save_wallet`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                telegram_id: storedUser.telegram_id,
+                wallet: wallet
+            }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            // обновим localStorage тоже, чтобы всё было синхронно
+            storedUser.wallet = wallet;
+            localStorage.setItem("telegramUser", JSON.stringify(storedUser));
+
+            statusDiv.textContent = "✅ Wallet saved successfully!";
+            statusDiv.className = "wallet-status-success";
+            showNotification("TON wallet connected successfully!", "success");
+        } else {
+            statusDiv.textContent = "❌ Failed to save wallet";
+            statusDiv.className = "wallet-status-error";
+        }
+    } catch (err) {
+        console.error(err);
+        statusDiv.textContent = "❌ Network error";
+        statusDiv.className = "wallet-status-error";
+    }
+}
+
+/*/ Save wallet
 function saveWallet() {
     const walletInput = document.getElementById("wallet");
     const wallet = walletInput.value.trim();
@@ -289,7 +348,7 @@ function saveWallet() {
     
     // Show success notification
     showNotification("TON wallet connected successfully!", 'success');
-}
+}*/
 
 // Logout
 function logout() {
@@ -435,11 +494,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const user = JSON.parse(storedUser);
         renderUserProfile(user);
     }
-
-    // Simulate ad revenue tracking
-    setTimeout(() => {
-        console.log('Ad impressions: 12, RPM: $3.20, Revenue: $0.038');
-    }, 5000);
 });
 
 // Handle orientation changes
@@ -462,5 +516,6 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
