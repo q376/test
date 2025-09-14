@@ -59,13 +59,6 @@ function playGame(gameId) {
 
     document.getElementById("game-frame").src = gameUrl;
     document.getElementById("game-modal").style.display = "flex";
-    
-    // Show rewarded ad option with mobile-friendly timing
-    setTimeout(() => {
-        if (confirm("Watch a short ad to double your potential winnings for this game?")) {
-            showNotification("рџЋЇ Winnings multiplier activated! Good luck!", 'success');
-        }
-    }, 3000); // Longer delay for mobile users
 }
 
 function closeGame() {
@@ -483,3 +476,4 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
