@@ -17,11 +17,6 @@ function showSection(sectionName) {
         top: 0,
         behavior: 'smooth'
     });
-
-    // Show interstitial ad when changing sections
-    if (Math.random() < 0.3) { // 30% chance
-        showInterstitialAd();
-    }
 }
 
 // Enhanced game functionality with mobile support
@@ -78,15 +73,6 @@ function closeGame() {
     setTimeout(() => {
         showNotification("Great game! Check out today's competitions!", 'info');
     }, 500);
-}
-
-// Ad simulation functions
-function showInterstitialAd() {
-    showNotification("📢 [Interstitial Ad Shown]", 'info');
-}
-
-function showRewardedAd() {
-    showNotification("🎥 [Rewarded Video Ad] +0.1 TON bonus!", 'success');
 }
 
 // Enhanced notification system with mobile support
@@ -476,4 +462,5 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
