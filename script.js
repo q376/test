@@ -26,7 +26,7 @@ function playGame(gameId) {
         "2048": "games/2048/index.html",
         "snake": "games/snake/snaki.html",
         "memory": "games/memory/index.html",
-        "chess": "games/chess/index.html",
+        "chess": "rea.html",
         "checkers": "games/checkers/index.html",
         "plinko": "games/plinko/index.html",
         "slots": "games/slots/index.html",
@@ -516,6 +516,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
