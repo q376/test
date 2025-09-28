@@ -21,7 +21,8 @@
             align-items: center;
             justify-content: center;
             color: white;
-            overflow: hidden;
+            padding: 1rem;
+            overflow-x: hidden;
         }
 
         .game-container {
@@ -32,10 +33,11 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
-            width: 90%;
+            width: 100%;
             max-width: 500px;
             position: relative;
-            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .game-container::before {
