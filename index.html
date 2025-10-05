@@ -23,6 +23,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -37,13 +38,7 @@
                 <li><a href="#" onclick="showSection('account')">👤 Account</a></li>
             </ul>
             <div class="auth-buttons" id="auth-container">
-                <script async src="https://telegram.org/js/telegram-widget.js?21"
-                    data-telegram-login="tongames_test_bot"
-                    data-size="large"
-                    data-userpic="true"
-                    data-onauth="onTelegramAuth(user)"
-                    data-request-access="write">
-                </script>
+                <div id="ton-connect-button"></div>
             </div>
         </nav>
     </header>
@@ -486,6 +481,7 @@
     </script>
 </body>
 </html>
+
 
 
 
