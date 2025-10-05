@@ -60,6 +60,7 @@ async function handleWalletConnected(wallet) {
         if (response.ok && data.user) {
             // Store user data locally
             localStorage.setItem("tonUser", JSON.stringify(data.user));
+            alert(JSON.stringify(data.user));
             console.log("User logged in:", data.user);
             renderUserProfile(data.user);
             showNotification("Connected successfully! 🎮", "success");
@@ -981,5 +982,6 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
