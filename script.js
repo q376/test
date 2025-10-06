@@ -31,7 +31,48 @@ function initTonConnect() {
     }
 }
 
-// Handle wallet connection
+async function handleWalletConnected(wallet) {
+    // TON Connect provides address in raw format (0:abc...)
+    // We need to convert it to user-friendly format (EQ...)
+    let walletAddress = wallet.account.address;
+    
+    // Convert raw format to user-friendly format
+    if (walletAddress.includes(':')) {
+        console.log('🔧 Converting raw format:', walletAddress);
+        walletAddress = convertToUserFriendly(walletAddress);
+        console.log('✅ Converted to user-friendly:', walletAddress);
+    }
+    
+    console.log('🔍 Connecting with wallet:', walletAddress);
+    
+    try {
+        // Register/login user with backend
+        const response = await fetch(`${API_URL}/auth/wallet`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                wallet_address: walletAddress
+            }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.user) {
+            console.log("User logged in:", data.user);
+            // IMMEDIATELY render the profile with the user data
+            renderUserProfile(data.user);
+            showNotification("Connected successfully! 🎮", "success");
+        } else {
+            console.error("Login error:", data);
+            showNotification("Login failed", "error");
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+        showNotification("Network error", "error");
+    }
+}
+
+/*/ Handle wallet connection
 async function handleWalletConnected(wallet) {
     // Get the wallet address - TON Connect provides it in user-friendly format
     let walletAddress = wallet.account.address;
@@ -72,7 +113,7 @@ async function handleWalletConnected(wallet) {
         console.error("Fetch error:", error);
         showNotification("Network error", "error");
     }
-}
+}*/
 
 // Handle wallet disconnection
 function handleWalletDisconnected() {
@@ -495,4 +536,5 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
