@@ -88,7 +88,7 @@ function renderUserProfile(user) {
     // Format wallet address for display (show first 6 and last 4 characters)
     const shortAddress = `${user.wallet_address.slice(0, 6)}...${user.wallet_address.slice(-4)}`;
     
-    authContainer.innerHTML = `
+    /*authContainer.innerHTML = `
         <div class="user-info" style="display: flex; align-items: center; gap: 12px;">
             <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(45deg, #4ecdc4, #45b7d1); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
                 💎
@@ -101,7 +101,7 @@ function renderUserProfile(user) {
                 Disconnect
             </button>
         </div>
-    `;
+    `;*/
     
     renderAccountPage(user);
 }
@@ -496,6 +496,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
