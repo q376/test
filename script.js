@@ -31,6 +31,7 @@ function initTonConnect() {
     }
 }
 
+// Handle wallet connection
 async function handleWalletConnected(wallet) {
     // TON Connect provides address in raw format (0:abc...)
     // We need to convert it to user-friendly format (EQ...)
@@ -536,5 +537,6 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
