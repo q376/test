@@ -64,6 +64,7 @@ async function handleWalletConnected(wallet) {
             console.log("User logged in:", data.user);
             renderUserProfile(data.user);
             showNotification("Connected successfully! 🎮", "success");
+            showSection('account');
         } else {
             console.error("Login error:", data);
             showNotification("Login failed", "error");
@@ -103,7 +104,6 @@ function renderUserProfile(user) {
     `;*/
 
     renderAccountPage(user);
-    showSection('account');
 }
 
 // Render account page
@@ -496,6 +496,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
