@@ -15,7 +15,7 @@ function initTonConnect() {
         if (wallet) {
             console.log('Wallet connected:', wallet);
             currentWallet = wallet.account.address;
-            alert(currentWallet);
+            alert(currentWallet); //?
             handleWalletConnected(wallet);
         } else {
             console.log('Wallet disconnected');
@@ -983,6 +983,7 @@ window.addEventListener('resize', function() {
         }
     }
 });*/
+
 
 
 
