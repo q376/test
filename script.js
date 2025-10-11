@@ -3,7 +3,7 @@ const API_URL = "https://backend-51rt.onrender.com";
 let tonConnectUI = null;
 let currentWallet = null;
 
-const rawAddress = 0:a8395ca4864430b75181b52dc39d1ae3d34a7952a72a42a94f56140b2f1cd1a2
+const rawAddress = "0:a8395ca4864430b75181b52dc39d1ae3d34a7952a72a42a94f56140b2f1cd1a2"
 
 // Конвертируем
 const TonWeb = window.TonWeb; // если через CDN
@@ -575,6 +575,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
