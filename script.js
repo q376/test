@@ -183,7 +183,7 @@ function renderAccountPage(user) {
             </div>
             <h3>Your TON Wallet</h3>
             <p style="font-family: monospace; background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 12px; margin: 1rem 0; word-break: break-all;">
-                ${user.wallet_address}
+                ${user.wallet_user_friendly}
             </p>
             <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">
                 Connected since: ${new Date(user.created_at).toLocaleDateString()}
@@ -564,6 +564,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
