@@ -3,6 +3,8 @@ const API_URL = "https://backend-51rt.onrender.com";
 let tonConnectUI = null;
 let currentWallet = null;
 
+console.log("TonWeb:", TonWeb);
+
 // CRC16
 function crc16(data) {
     let crc = 0xFFFF;
@@ -575,6 +577,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
