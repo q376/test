@@ -3,8 +3,6 @@ const API_URL = "https://backend-51rt.onrender.com";
 let tonConnectUI = null;
 let currentWallet = null;
 
-console.log("TonWeb:", TonWeb);
-
 // CRC16
 function crc16(data) {
     let crc = 0xFFFF;
@@ -105,17 +103,6 @@ function initTonConnect() {
 
 // Handle wallet connection
 async function handleWalletConnected(wallet) {
-    const rawAddress = "0:a8395ca4864430b75181b52dc39d1ae3d34a7952a72a42a94f56140b2f1cd1a2"
-
-    // Конвертируем
-    const TonWeb = window.TonWeb; // если через CDN
-    const addr = new TonWeb.Address(rawAddress);
-    const friendly = addr.toString(true, false); // bounceable=true, testOnly=false
-
-    console.log("User-friendly address:", friendly);
-    alert("User-friendly address:", friendly);
-
-    
     // Get the wallet address - TON Connect provides it in user-friendly format
     let walletAddress = wallet.account.address;
     let walletFriendly = toUserFriendly(walletAddress, { bounceable: false });;
@@ -577,6 +564,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
