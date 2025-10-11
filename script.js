@@ -3,7 +3,7 @@ const API_URL = "https://backend-51rt.onrender.com";
 let tonConnectUI = null;
 let currentWallet = null;
 
-// CRC16 для TON
+// CRC16
 function crc16(data) {
     let crc = 0xFFFF;
     for (let byte of data) {
@@ -20,37 +20,55 @@ function crc16(data) {
     return crc;
 }
 
-// Base64-url (TON использует url-safe)
-function base64UrlEncode(buffer) {
-    return Buffer.from(buffer)
-        .toString("base64")
+// Конвертация hex в Uint8Array
+function hexToBytes(hex) {
+    const bytes = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = parseInt(hex.substr(i*2, 2), 16);
+    }
+    return bytes;
+}
+
+// Base64-url
+function base64UrlEncode(bytes) {
+    let binary = '';
+    for (let b of bytes) binary += String.fromCharCode(b);
+    return btoa(binary)
         .replace(/\+/g, "-")
         .replace(/\//g, "_")
         .replace(/=+$/, "");
 }
 
+// Конкатенация Uint8Array
+function concatUint8Arrays(...arrays) {
+    let totalLength = arrays.reduce((sum, arr) => sum + arr.length, 0);
+    let result = new Uint8Array(totalLength);
+    let offset = 0;
+    for (let arr of arrays) {
+        result.set(arr, offset);
+        offset += arr.length;
+    }
+    return result;
+}
+
 // Конвертация raw в user-friendly
 function toUserFriendly(rawAddress, { bounceable = false, testOnly = false } = {}) {
-    // raw вида "0:abcdef..."
     const [wcStr, hashHex] = rawAddress.split(":");
     const workchain = parseInt(wcStr, 10);
-    const hash = Buffer.from(hashHex, "hex");
+    const hash = hexToBytes(hashHex);
 
     if (hash.length !== 32) throw new Error("Invalid hash length");
 
-    // Флаги TON: bounceable / non-bounceable
     let tag = bounceable ? 0x11 : 0x51;
     if (testOnly) tag |= 0x80;
 
-    // Собираем payload
-    const addr = Buffer.concat([Buffer.from([tag, workchain & 0xff]), hash]);
+    const addr = concatUint8Arrays(new Uint8Array([tag, workchain & 0xff]), hash);
 
     // CRC16
-    const crc = Buffer.alloc(2);
-    crc.writeUInt16BE(crc16(addr));
+    const crcValue = crc16(addr);
+    const crc = new Uint8Array([crcValue >> 8, crcValue & 0xff]);
 
-    // Итог
-    const packed = Buffer.concat([addr, crc]);
+    const packed = concatUint8Arrays(addr, crc);
     return base64UrlEncode(packed);
 }
 
@@ -104,7 +122,7 @@ async function handleWalletConnected(wallet) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 wallet_raw: walletAddress, // если есть raw
-                wallet_user_friendly: walletAddressFriendly // EQ/UQ
+                wallet_user_friendly: walletFriendly // EQ/UQ
             }),
         });
 
@@ -549,6 +567,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
