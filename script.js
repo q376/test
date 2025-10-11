@@ -3,6 +3,57 @@ const API_URL = "https://backend-51rt.onrender.com";
 let tonConnectUI = null;
 let currentWallet = null;
 
+// CRC16 для TON
+function crc16(data) {
+    let crc = 0xFFFF;
+    for (let byte of data) {
+        crc ^= byte << 8;
+        for (let i = 0; i < 8; i++) {
+            if (crc & 0x8000) {
+                crc = (crc << 1) ^ 0x1021;
+            } else {
+                crc <<= 1;
+            }
+            crc &= 0xFFFF;
+        }
+    }
+    return crc;
+}
+
+// Base64-url (TON использует url-safe)
+function base64UrlEncode(buffer) {
+    return Buffer.from(buffer)
+        .toString("base64")
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
+}
+
+// Конвертация raw в user-friendly
+function toUserFriendly(rawAddress, { bounceable = false, testOnly = false } = {}) {
+    // raw вида "0:abcdef..."
+    const [wcStr, hashHex] = rawAddress.split(":");
+    const workchain = parseInt(wcStr, 10);
+    const hash = Buffer.from(hashHex, "hex");
+
+    if (hash.length !== 32) throw new Error("Invalid hash length");
+
+    // Флаги TON: bounceable / non-bounceable
+    let tag = bounceable ? 0x11 : 0x51;
+    if (testOnly) tag |= 0x80;
+
+    // Собираем payload
+    const addr = Buffer.concat([Buffer.from([tag, workchain & 0xff]), hash]);
+
+    // CRC16
+    const crc = Buffer.alloc(2);
+    crc.writeUInt16BE(crc16(addr));
+
+    // Итог
+    const packed = Buffer.concat([addr, crc]);
+    return base64UrlEncode(packed);
+}
+
 // Initialize TON Connect
 function initTonConnect() {
     tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
@@ -36,7 +87,7 @@ function initTonConnect() {
 async function handleWalletConnected(wallet) {
     // Get the wallet address - TON Connect provides it in user-friendly format
     let walletAddress = wallet.account.address;
-    
+    let walletFriendly = toUserFriendly(walletAddress, { bounceable: false });;
     // If address is in raw format (0:abc...), convert to user-friendly (EQ...)
     if (walletAddress.includes(':')) {
         // This is raw format, we need to convert it
@@ -52,7 +103,8 @@ async function handleWalletConnected(wallet) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                wallet_address: walletAddress
+                wallet_raw: walletAddress, // если есть raw
+                wallet_user_friendly: walletAddressFriendly // EQ/UQ
             }),
         });
 
@@ -497,6 +549,7 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
 
 
 
