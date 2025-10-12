@@ -1,6 +1,6 @@
 // TON Address Converter: Raw to User-Friendly Format
 
-class TONAddressConverter {
+export class TONAddressConverter {
   constructor() {
     // CRC16 lookup table for XMODEM variant
     this.crcTable = this.generateCRC16Table();
