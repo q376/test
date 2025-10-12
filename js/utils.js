@@ -183,24 +183,3 @@ class TONAddressConverter {
 
 // Usage example
 const converter = new TONAddressConverter();
-
-// Example conversion
-const rawAddress = '0:83dfd552e63729b472fcbcc8c45ebcc6691702558b68ec7527e1ba403a0f31a8';
-
-console.log('Raw Address:', rawAddress);
-
-// Convert to bounceable (default)
-const bounceable = converter.rawToUserFriendly(rawAddress);
-console.log('Bounceable:', bounceable);
-
-// Convert to non-bounceable
-const nonBounceable = converter.rawToUserFriendly(rawAddress, { isBounceable: false });
-console.log('Non-bounceable:', nonBounceable);
-
-// Convert to testnet
-const testnet = converter.rawToUserFriendly(rawAddress, { isTestOnly: true });
-console.log('Testnet:', testnet);
-
-// Verify by converting back
-const verified = converter.userFriendlyToRaw(bounceable);
-console.log('Verified:', verified);
