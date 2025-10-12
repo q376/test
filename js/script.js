@@ -1,3 +1,9 @@
+import { TONAddressConverter } from './utils.js';
+
+const converter = new TONAddressConverter();
+const address = converter.toNonBounceable('0:a8395ca4864430b75181b52dc39d1ae3d34a7952a72a42a94f56140b2f1cd1a2');
+console.log(address);
+
 // ==== TON Connect Initialization ====
 const API_URL = "https://backend-51rt.onrender.com";
 let tonConnectUI = null;
