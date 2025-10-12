@@ -180,6 +180,3 @@ class TONAddressConverter {
     return this.userFriendlyToRaw(address).raw;
   }
 }
-
-// Usage example
-const converter = new TONAddressConverter();
