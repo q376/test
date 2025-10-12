@@ -1,4 +1,5 @@
 // ==== TON Connect Initialization ====
+/*
 const API_URL = "https://backend-51rt.onrender.com";
 let tonConnectUI = null;
 let currentWallet = null;
@@ -169,7 +170,7 @@ function renderUserProfile(user) {
                 Disconnect
             </button>
         </div>
-    `;*/
+    `;* /
 
     renderAccountPage(user);
 }
@@ -563,25 +564,4 @@ window.addEventListener('resize', function() {
             navLinks.classList.remove('mobile-open');
         }
     }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+});*/
