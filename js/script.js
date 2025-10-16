@@ -570,3 +570,10 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
+// At the end of script.js, make functions global:
+   window.showSection = showSection;
+   window.playGame = playGame;
+   window.closeGame = closeGame;
+   window.showUserProfile = showUserProfile;
+   window.disconnectWallet = disconnectWallet;
