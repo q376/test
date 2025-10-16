@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Animate cards on scroll
-    export function animateOnScroll() {
+    function animateOnScroll() {
         cards.forEach(card => {
             const rect = card.getBoundingClientRect();
             const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
