@@ -10,7 +10,7 @@ let tonConnectUI = null;
 let currentWallet = null;
 
 // CRC16
-function crc16(data) {
+export function crc16(data) {
     let crc = 0xFFFF;
     for (let byte of data) {
         crc ^= byte << 8;
@@ -27,7 +27,7 @@ function crc16(data) {
 }
 
 // Конвертация hex в Uint8Array
-function hexToBytes(hex) {
+export function hexToBytes(hex) {
     const bytes = new Uint8Array(hex.length / 2);
     for (let i = 0; i < bytes.length; i++) {
         bytes[i] = parseInt(hex.substr(i*2, 2), 16);
@@ -36,7 +36,7 @@ function hexToBytes(hex) {
 }
 
 // Base64-url
-function base64UrlEncode(bytes) {
+export function base64UrlEncode(bytes) {
     let binary = '';
     for (let b of bytes) binary += String.fromCharCode(b);
     return btoa(binary)
@@ -46,7 +46,7 @@ function base64UrlEncode(bytes) {
 }
 
 // Конкатенация Uint8Array
-function concatUint8Arrays(...arrays) {
+export function concatUint8Arrays(...arrays) {
     let totalLength = arrays.reduce((sum, arr) => sum + arr.length, 0);
     let result = new Uint8Array(totalLength);
     let offset = 0;
@@ -58,7 +58,7 @@ function concatUint8Arrays(...arrays) {
 }
 
 // Конвертация raw в user-friendly
-function toUserFriendly(rawAddress, { bounceable = false, testOnly = false } = {}) {
+export function toUserFriendly(rawAddress, { bounceable = false, testOnly = false } = {}) {
     const [wcStr, hashHex] = rawAddress.split(":");
     const workchain = parseInt(wcStr, 10);
     const hash = hexToBytes(hashHex);
@@ -79,7 +79,7 @@ function toUserFriendly(rawAddress, { bounceable = false, testOnly = false } = {
 }
 
 // Initialize TON Connect
-function initTonConnect() {
+export function initTonConnect() {
     tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
         manifestUrl: 'https://tonnaton.netlify.app/toncon-manifest.json', // UPDATE THIS WITH YOUR REAL URL!
         buttonRootId: 'ton-connect-button'
@@ -108,7 +108,7 @@ function initTonConnect() {
 
 
 // Handle wallet connection
-async function handleWalletConnected(wallet) {
+export async function handleWalletConnected(wallet) {
     // Get the wallet address - TON Connect provides it in user-friendly format
     let walletAddress = wallet.account.address;
     let walletFriendly = toUserFriendly(walletAddress, { bounceable: false });;
@@ -153,13 +153,13 @@ async function handleWalletConnected(wallet) {
 }
 
 // Handle wallet disconnection
-function handleWalletDisconnected() {
+export function handleWalletDisconnected() {
     localStorage.removeItem("tonUser");
     location.reload();
 }
 
 // Render user profile after connection
-function renderUserProfile(user) {
+export function renderUserProfile(user) {
     const authContainer = document.getElementById("auth-container");
     
     /*authContainer.innerHTML = `
@@ -181,7 +181,7 @@ function renderUserProfile(user) {
 }
 
 // Render account page
-function renderAccountPage(user) {
+export function renderAccountPage(user) {
     document.getElementById("account-info").innerHTML = `
         <div class="account-profile" style="text-align: center; padding: 2rem; background: var(--card-bg); border-radius: 24px; border: 1px solid var(--card-border); margin-bottom: 2rem;">
             <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(45deg, #4ecdc4, #45b7d1); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1rem;">
@@ -239,7 +239,7 @@ async function disconnectWallet() {
 }
 
 // Check session on page load
-function checkSession() {
+export function checkSession() {
     const storedUser = localStorage.getItem("tonUser");
     if (storedUser && !currentWallet) {
         // User was logged in before but wallet not currently connected
@@ -255,7 +255,7 @@ function checkSession() {
 // ===== KEEP ALL THE CODE BELOW - These are your existing functions =====
 
 // Section navigation
-function showSection(sectionName) {
+export function showSection(sectionName) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
         section.classList.remove('active');
@@ -276,7 +276,7 @@ function showSection(sectionName) {
 }
 
 // Enhanced game functionality with mobile support
-function playGame(gameId) {
+export function playGame(gameId) {
     const gameMap = {
         "flappy": "games/flappy/index.html",
         "2048": "games/2048/index.html",
@@ -312,7 +312,7 @@ function playGame(gameId) {
     document.getElementById("game-modal").style.display = "flex";
 }
 
-function closeGame() {
+export function closeGame() {
     document.getElementById("game-frame").src = "";
     document.getElementById("game-modal").style.display = "none";
     
@@ -332,7 +332,7 @@ function closeGame() {
 }
 
 // Enhanced notification system with mobile support
-function showNotification(message, type = 'info') {
+export function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     
     // Check if mobile
@@ -376,7 +376,7 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-function showUserProfile() {
+export function showUserProfile() {
     if (!currentWallet) {
         showNotification('Please connect your TON wallet to view profile', 'info');
     } else {
@@ -421,7 +421,7 @@ window.addEventListener('message', function(event) {
     }
 });
 
-function validateScore(game, score, data) {
+export function validateScore(game, score, data) {
     // Basic anti-cheat validation
     switch(game) {
         case 'breakout':
@@ -435,7 +435,7 @@ function validateScore(game, score, data) {
 }
 
 // Mobile Menu Toggle Functionality
-function initMobileMenu() {
+export function initMobileMenu() {
     // Add mobile menu toggle to nav
     const nav = document.querySelector('nav');
     const navLinks = document.querySelector('.nav-links');
@@ -477,7 +477,7 @@ function initMobileMenu() {
 }
 
 // Optimize for touch devices
-function optimizeForTouch() {
+export function optimizeForTouch() {
     // Add touch-friendly hover effects
     const cards = document.querySelectorAll('.game-card, .competition-card');
     cards.forEach(card => {
@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Animate cards on scroll
-    function animateOnScroll() {
+    export function animateOnScroll() {
         cards.forEach(card => {
             const rect = card.getBoundingClientRect();
             const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
