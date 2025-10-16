@@ -9,75 +9,6 @@ const API_URL = "https://backend-51rt.onrender.com";
 let tonConnectUI = null;
 let currentWallet = null;
 
-// CRC16
-export function crc16(data) {
-    let crc = 0xFFFF;
-    for (let byte of data) {
-        crc ^= byte << 8;
-        for (let i = 0; i < 8; i++) {
-            if (crc & 0x8000) {
-                crc = (crc << 1) ^ 0x1021;
-            } else {
-                crc <<= 1;
-            }
-            crc &= 0xFFFF;
-        }
-    }
-    return crc;
-}
-
-// Конвертация hex в Uint8Array
-export function hexToBytes(hex) {
-    const bytes = new Uint8Array(hex.length / 2);
-    for (let i = 0; i < bytes.length; i++) {
-        bytes[i] = parseInt(hex.substr(i*2, 2), 16);
-    }
-    return bytes;
-}
-
-// Base64-url
-export function base64UrlEncode(bytes) {
-    let binary = '';
-    for (let b of bytes) binary += String.fromCharCode(b);
-    return btoa(binary)
-        .replace(/\+/g, "-")
-        .replace(/\//g, "_")
-        .replace(/=+$/, "");
-}
-
-// Конкатенация Uint8Array
-export function concatUint8Arrays(...arrays) {
-    let totalLength = arrays.reduce((sum, arr) => sum + arr.length, 0);
-    let result = new Uint8Array(totalLength);
-    let offset = 0;
-    for (let arr of arrays) {
-        result.set(arr, offset);
-        offset += arr.length;
-    }
-    return result;
-}
-
-// Конвертация raw в user-friendly
-export function toUserFriendly(rawAddress, { bounceable = false, testOnly = false } = {}) {
-    const [wcStr, hashHex] = rawAddress.split(":");
-    const workchain = parseInt(wcStr, 10);
-    const hash = hexToBytes(hashHex);
-
-    if (hash.length !== 32) throw new Error("Invalid hash length");
-
-    let tag = bounceable ? 0x11 : 0x51;
-    if (testOnly) tag |= 0x80;
-
-    const addr = concatUint8Arrays(new Uint8Array([tag, workchain & 0xff]), hash);
-
-    // CRC16
-    const crcValue = crc16(addr);
-    const crc = new Uint8Array([crcValue >> 8, crcValue & 0xff]);
-
-    const packed = concatUint8Arrays(addr, crc);
-    return base64UrlEncode(packed);
-}
-
 // Initialize TON Connect
 export function initTonConnect() {
     tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
@@ -111,7 +42,7 @@ export function initTonConnect() {
 export async function handleWalletConnected(wallet) {
     // Get the wallet address - TON Connect provides it in user-friendly format
     let walletAddress = wallet.account.address;
-    let walletFriendly = toUserFriendly(walletAddress, { bounceable: false });;
+    let walletFriendly = converter.toNonBounceable(walletAddress);
     // If address is in raw format (0:abc...), convert to user-friendly (EQ...)
     if (walletAddress.includes(':')) {
         // This is raw format, we need to convert it
