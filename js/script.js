@@ -214,6 +214,7 @@ export function playGame(gameId) {
         "memory": "games/memory/index.html",
         "chess": "games/chess.html",
         "pong": "games/pong.html",
+        "reaction": "games/reaction.html",
         "checkers": "games/checkers/index.html",
         "plinko": "games/plinko/index.html",
         "slots": "games/slots/index.html",
